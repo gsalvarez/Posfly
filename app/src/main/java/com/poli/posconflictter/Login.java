@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 public class Login extends Fragment {
 
+    //Patrón de emails
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     private EditText txtEmail;
@@ -49,6 +50,7 @@ public class Login extends Fragment {
         txtEmail = (EditText) view.findViewById(R.id.txtEmailL);
         txtPass = (EditText) view.findViewById(R.id.txtPassL);
 
+        //Click en el botón de registro lleva alfragmento de registro
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +61,7 @@ public class Login extends Fragment {
             }
         });
 
+        //Click en el botón de Login valida la información para iniciar sesión
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +72,7 @@ public class Login extends Fragment {
         return view;
     }
 
+    //Método que verifica el correo y la contraseña ingresada (Campos vacios, correo valido, datos en Firebase)
     public void tryLogin(String email, String pass) {
         if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(getActivity().getApplication().getApplicationContext(), "Hay campos vacíos", Toast.LENGTH_SHORT).show();
@@ -80,14 +84,14 @@ public class Login extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
+                                // Logueado, se muestra el fragmento de inicio
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                                 transaction.replace(R.id.fragment_container, new Start());
                                 transaction.commit();
                             } else {
-                                // If sign in fails, display a message to the user.
+                                // Mensaje si no inicia sesión
                                 Toast.makeText(getActivity().getApplication().getApplicationContext(), "Error al iniciar sesión, verifica los datos", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -95,26 +99,21 @@ public class Login extends Fragment {
         }
     }
 
+    //Método que verifica que el correo sea válido
     public boolean validateEmail(final String email) {
-        // Compiles the given regular expression into a pattern.
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
-
-        // Match the given input against this pattern
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-
-
+    //Método que cifra la contraseña como hash con MD5
     public static String codePass(String pass) {
         MessageDigest m = null;
-
         try {
             m = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
         m.update(pass.getBytes(), 0, pass.length());
         return new BigInteger(1, m.digest()).toString(16);
     }

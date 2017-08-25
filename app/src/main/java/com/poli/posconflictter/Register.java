@@ -1,6 +1,8 @@
 package com.poli.posconflictter;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +33,7 @@ import java.util.regex.Pattern;
 
 public class Register extends Fragment {
 
+    //Patrón de emails
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private String info = "";
     private String sName;
@@ -66,6 +69,7 @@ public class Register extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
+        //Listener que escucha el estado de sesión del usuario
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -89,6 +93,7 @@ public class Register extends Fragment {
         txtRepass = (EditText) view.findViewById(R.id.txtRepassR);
         Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
 
+        //Al oprimir el botón crear, verifica todos los campos
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +130,10 @@ public class Register extends Fragment {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getActivity().getApplication().getApplicationContext(), "Cuenta creada con éxito", Toast.LENGTH_SHORT).show();
                                         mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail, codePass(sPass)));
+                                        FragmentManager fragmentManager = getFragmentManager();
+                                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                                        transaction.replace(R.id.fragment_container, new Start());
+                                        transaction.commit();
                                     }else {
                                         Toast.makeText(getActivity().getApplication().getApplicationContext(), "La dirección de correo ya está en uso", Toast.LENGTH_SHORT).show();
                                     }
@@ -142,6 +151,7 @@ public class Register extends Fragment {
         return view;
     }
 
+    //revisa los campos, las contraseñas, el email
     public boolean checkFieldsPasswordsAndEmail (String name, String lastname, String user, String email, String pass, String rePass) {
         if (name.isEmpty() || lastname.isEmpty() || user.isEmpty() || email.isEmpty() || pass.isEmpty() || rePass.isEmpty()){
             info = "Todos los campos deben estar llenos";
@@ -165,6 +175,7 @@ public class Register extends Fragment {
         }
     }
 
+    //Método que verifica el email
     public boolean validateEmail (final String email) {
         // Compiles the given regular expression into a pattern.
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
@@ -174,6 +185,7 @@ public class Register extends Fragment {
         return matcher.matches();
     }
 
+    //Método que cifra la contraseña en hash con MD5
     public static String codePass(String pass) {
         MessageDigest m = null;
 
