@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,16 +43,17 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        getActivity().setTitle("Iniciar sesión");
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button btnReg = (Button) view.findViewById(R.id.btnReg);
+        TextView tvReg = (TextView) view.findViewById(R.id.tvReg);
         Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
         txtEmail = (EditText) view.findViewById(R.id.txtEmailL);
         txtPass = (EditText) view.findViewById(R.id.txtPassL);
 
         //Click en el botón de registro lleva alfragmento de registro
-        btnReg.setOnClickListener(new View.OnClickListener() {
+        tvReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();

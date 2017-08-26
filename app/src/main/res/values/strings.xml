@@ -5,8 +5,10 @@
         <string name="email">Correo electrónico</string>
         <string name="pass">Contraseña</string>
         <string name="login">Iniciar sesión</string>
+        <string name="start">Iniciar</string>
         <string name="logout">Cerrar sesión</string>
         <string name="create">Crear cuenta</string>
+        <string name="forgot_pass">Olvidé mi contraseña</string>
 
         <string name="loginFB">Login con FB</string>
         <string name="loginGO">Login con Google</string>
