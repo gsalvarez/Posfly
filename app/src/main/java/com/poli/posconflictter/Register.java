@@ -25,9 +25,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -123,13 +120,13 @@ public class Register extends Fragment {
                     });
                 }
                 if (info.equals("Error en la conexión")) {
-                    mAuth.createUserWithEmailAndPassword(sEmail, codePass(sPass))
+                    mAuth.createUserWithEmailAndPassword(sEmail, sPass)
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getActivity().getApplication().getApplicationContext(), "Cuenta creada con éxito", Toast.LENGTH_SHORT).show();
-                                        mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail, codePass(sPass)));
+                                        mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail));
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                                         transaction.replace(R.id.fragment_container, new Start());
@@ -183,20 +180,6 @@ public class Register extends Fragment {
         // Match the given input against this pattern
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-    }
-
-    //Método que cifra la contraseña en hash con MD5
-    public static String codePass(String pass) {
-        MessageDigest m = null;
-
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        m.update(pass.getBytes(), 0, pass.length());
-        return new BigInteger(1, m.digest()).toString(16);
     }
 
     @Override
