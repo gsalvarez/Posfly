@@ -5,18 +5,16 @@ public class User {
     private String Nombre;
     private String Apellido;
     private String Correo;
-    private String Contrasena;
 
     public User () {
 
     }
-    public User (String userid, String name, String lastname, String email, String pass) {
+    public User (String userid, String name, String lastname, String email) {
         this.Usuario = userid;
         this.Nombre = name;
         this.Apellido = lastname;
 
         this.Correo = email;
-        this.Contrasena = pass;
     }
 
     public String getUsuario() {
@@ -49,13 +47,5 @@ public class User {
 
     public void setCorreo(String correo) {
         Correo = correo;
-    }
-
-    public String getContrasena() {
-        return Contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
     }
 }

@@ -37,4 +37,13 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.fragment_container, fragment);
         transaction.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            this.finish();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
 }

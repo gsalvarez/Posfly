@@ -2,6 +2,7 @@ package com.poli.posconflictter;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
@@ -19,9 +20,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +32,7 @@ public class Login extends Fragment {
     private EditText txtPass;
 
     private FirebaseAuth mAuth;
+    private ProgressDialog progressDialog;
 
     public Login() {
         // Required empty public constructor
@@ -43,22 +42,35 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        getActivity().setTitle("Iniciar sesión");
 
         mAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(getActivity());
 
         TextView tvReg = (TextView) view.findViewById(R.id.tvReg);
+        TextView tvForg = (TextView) view.findViewById(R.id.tvForgot);
         Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
         txtEmail = (EditText) view.findViewById(R.id.txtEmailL);
         txtPass = (EditText) view.findViewById(R.id.txtPassL);
 
-        //Click en el botón de registro lleva alfragmento de registro
+        //Click en el botón de registro lleva al fragmento de registro
         tvReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.addToBackStack(null);
                 transaction.replace(R.id.fragment_container, new Register());
+                transaction.commit();
+            }
+        });
+        //Click en el botón de olvidé contraseña lleva al fragmento de recuperar contraseña
+        tvForg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.fragment_container, new Forgot());
                 transaction.commit();
             }
         });
@@ -81,12 +93,15 @@ public class Login extends Fragment {
         } else if (!validateEmail(email)) {
             Toast.makeText(getActivity().getApplication().getApplicationContext(), "La dirección de correo no es válida", Toast.LENGTH_SHORT).show();
         } else {
-            mAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), codePass(txtPass.getText().toString()))
+            progressDialog.setMessage("Iniciando sesión, por favor espera...");
+            progressDialog.show();
+            mAuth.signInWithEmailAndPassword(txtEmail.getText().toString(), txtPass.getText().toString())
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Logueado, se muestra el fragmento de inicio
+                                progressDialog.dismiss();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -95,6 +110,7 @@ public class Login extends Fragment {
                             } else {
                                 // Mensaje si no inicia sesión
                                 Toast.makeText(getActivity().getApplication().getApplicationContext(), "Error al iniciar sesión, verifica los datos", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     });
@@ -106,17 +122,5 @@ public class Login extends Fragment {
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
-    }
-
-    //Método que cifra la contraseña como hash con MD5
-    public static String codePass(String pass) {
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.update(pass.getBytes(), 0, pass.length());
-        return new BigInteger(1, m.digest()).toString(16);
     }
 }
