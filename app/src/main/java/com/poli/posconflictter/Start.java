@@ -4,14 +4,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Start extends Fragment {
+
+    private TabLayout tabs;
 
     public Start() {
         // Required empty public constructor
@@ -22,16 +23,48 @@ public class Start extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_start, container, false);
 
-        Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        tabs = (TabLayout) view.findViewById(R.id.tabs);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        Log.d("TAG", String.valueOf(tabs.getChildCount()));
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("TAG", "onTabChanged: tab number=" + tabs.getSelectedTabPosition());
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, new Login());
-                transaction.commit();
+
+                switch (tabs.getSelectedTabPosition()) {
+                    case 0:
+                        //do what you want when tab 0 is selected
+                        transaction.replace(R.id.frag_container, new Event());
+                        transaction.commit();
+                        break;
+                    case 1:
+                        //do what you want when tab 1 is selected
+                        transaction.replace(R.id.frag_container, new Museum());
+                        transaction.commit();
+                        break;
+                    case 2:
+                        //do what you want when tab 2 is selected
+                        transaction.replace(R.id.frag_container, new Profile());
+                        transaction.commit();
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 

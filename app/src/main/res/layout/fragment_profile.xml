@@ -4,27 +4,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/barra_menu"
+    <Button
+        android:id="@+id/btnLogout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-        <item android:id="@+id/event"
-            android:icon="@drawable/ic_insert_invitation_white_48dp"
-            android:title="@string/events"
-            app:showAsAction="never"/>
-        <item android:id="@+id/museum"
-            android:icon="@drawable/ic_store_white_48dp"
-            android:title="@string/museum"
-            app:showAsAction="never"/>
-        <item android:id="@+id/profile"
-            android:icon="@drawable/ic_account_circle_white_24dp"
-            android:title="@string/profile"
-            app:showAsAction="never"/>
-    </menu>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/buttons_shape_red"
+        android:text="@string/logout"
+        android:textColor="@android:color/white" />
 </LinearLayout>
