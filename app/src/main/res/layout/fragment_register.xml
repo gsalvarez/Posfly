@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FragmentBackground"
+    android:background="@drawable/gradient"
     android:orientation="vertical">
 
     <TextView
@@ -99,6 +99,7 @@
             android:gravity="center"
             android:hint="@string/repass"
             android:inputType="textPassword"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray" />
 
@@ -115,10 +116,9 @@
 
         <Button
             android:id="@+id/btnCreate"
-            android:layout_width="wrap_content"
+            android:layout_width="144dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:background="@drawable/buttons_shape"
             android:gravity="center"
             android:text="@string/create"

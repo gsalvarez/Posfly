@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FragmentBackground"
+    android:background="@drawable/gradient"
     android:orientation="vertical"
     tools:context="com.poli.posconflictter.Login">
 
@@ -87,9 +87,8 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="112dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@drawable/buttons_shape"
             android:text="@string/start"
             android:textColor="@android:color/white"
@@ -111,7 +110,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/create"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/common_google_signin_btn_text_light_focused" />
 
         <TextView
             android:id="@+id/tvForgot"
@@ -121,7 +120,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/forgot_pass"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/common_google_signin_btn_text_light_focused" />
 
     </LinearLayout>
 
