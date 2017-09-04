@@ -1,42 +1,28 @@
 package com.poli.posconflictter;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.app.Fragment;
+import android.support.design.widget.TabItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
-/**
- * Created by iGabetoPC on 21/08/2017.
- */
+import com.google.firebase.auth.FirebaseAuth;
 
-public class Museum  extends AppCompatActivity {
+public class Museum extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_event);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.barra_menu);
-        setSupportActionBar(myToolbar);
+    public Museum() {
+        // Required empty public constructor
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.event:
-                setContentView(R.layout.fragment_event);
-                return true;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_museum, container, false);
 
-            case R.id.museum:
-                setContentView(R.layout.fragment_museum);
-                return true;
-
-            case R.id.profile:
-                setContentView(R.layout.fragment_profile);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
+        return view;
     }
 }
