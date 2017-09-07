@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            Log.d("TAG", "Logged as: "+user.getEmail());
             fragment = new Start();
         }
         else {
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             fragment = new Login();
 
         }
-        transaction.add(R.id.fragment_container, fragment);
+        transaction.add(R.id.fragment_container, fragment, "fi");
         transaction.commit();
     }
 
