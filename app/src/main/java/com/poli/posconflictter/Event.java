@@ -1,35 +1,96 @@
 package com.poli.posconflictter;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import java.util.ArrayList;
 
-public class Event extends Fragment {
+public class Event {
 
-    public Event() {
-        // Required empty public constructor
+    private String Nombre;
+    private String Fecha;
+    private String Hora;
+    private String Lugar;
+    private String Descripcion;
+    private String Precio;
+    private double Calificacion;
+    private ArrayList<String> Comentarios;
+
+
+    public Event () {
+
+    }
+    public Event (String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments) {
+        this.Nombre = name;
+        this.Fecha = date;
+        this.Hora = hour;
+        this.Lugar = place;
+        this.Descripcion = description;
+        this.Precio = price;
+        this.Comentarios = comments;
+        this.Calificacion = rating;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event, container, false);
-
-        FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(R.id.btnNewEvent);
-
-        btnNewEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplication().getApplicationContext(), "Crear evento", Toast.LENGTH_SHORT).show();
-            }
-        });
-        return view;
+    public String getNombre() {
+        return Nombre;
     }
+
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
+
+    public String getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(String fecha) {
+        Fecha = fecha;
+    }
+
+    public String getHora() {
+        return Hora;
+    }
+
+    public void setHora(String hora) {
+        Hora = hora;
+    }
+
+    public String getLugar() {
+        return Lugar;
+    }
+
+    public void setLugar(String lugar) {
+        Lugar = lugar;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        Descripcion = descripcion;
+    }
+
+    public String getPrecio() {
+        return Precio;
+    }
+
+    public void setPrecio(String precio) {
+        Precio = precio;
+    }
+
+    public double getCalificacion() {
+        return Calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        Calificacion = calificacion;
+    }
+
+    public ArrayList<String> getComentarios() {
+        return Comentarios;
+    }
+
+    public void setComentarios(ArrayList<String> comentarios) {
+        Comentarios = comentarios;
+    }
+
+
 }

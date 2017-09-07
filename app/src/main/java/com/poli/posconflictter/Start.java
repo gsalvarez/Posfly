@@ -37,17 +37,17 @@ public class Start extends Fragment {
                 switch (tabs.getSelectedTabPosition()) {
                     case 0:
                         //do what you want when tab 0 is selected
-                        transaction.replace(R.id.frag_container, new Event());
+                        transaction.replace(R.id.frag_container, new EventF(), "fe");
                         transaction.commit();
                         break;
                     case 1:
                         //do what you want when tab 1 is selected
-                        transaction.replace(R.id.frag_container, new Museum());
+                        transaction.replace(R.id.frag_container, new Museum(), "fm");
                         transaction.commit();
                         break;
                     case 2:
                         //do what you want when tab 2 is selected
-                        transaction.replace(R.id.frag_container, new Profile());
+                        transaction.replace(R.id.frag_container, new Profile(), "fp");
                         transaction.commit();
                         break;
 

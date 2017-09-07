@@ -58,8 +58,8 @@ public class Login extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.fragment_container, new Register());
+                transaction.addToBackStack("fi");
+                transaction.replace(R.id.fragment_container, new Register(), "fr");
                 transaction.commit();
             }
         });
@@ -69,8 +69,8 @@ public class Login extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.fragment_container, new Forgot());
+                transaction.addToBackStack("fi");
+                transaction.replace(R.id.fragment_container, new Forgot(), "ff");
                 transaction.commit();
             }
         });
@@ -105,7 +105,7 @@ public class Login extends Fragment {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                transaction.replace(R.id.fragment_container, new Start());
+                                transaction.replace(R.id.fragment_container, new Start(), "fs");
                                 transaction.commit();
                             } else {
                                 // Mensaje si no inicia sesión
