@@ -5,19 +5,20 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EventF extends Fragment {
@@ -56,30 +57,61 @@ public class EventF extends Fragment {
             }
         });
 
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        adapter = new ItemAdapter(eventf, itemEvents);
+        lvEvents.setAdapter(adapter);
+
+        mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    itemEvents.add(new Event(data.child("nombre").getValue().toString(), data.child("fecha").getValue().toString(), data.child("hora").getValue().toString(),
-                            data.child("lugar").getValue().toString(), data.child("descripcion").getValue().toString(), data.child("precio").getValue().toString(),
-                            Double.parseDouble(data.child("calificacion").getValue().toString()), null));
-                }
-                updateListView();
-                Log.d("TAG", itemEvents.toString());
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                itemEvents.add(new Event(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("hora").getValue().toString(),
+                            dataSnapshot.child("lugar").getValue().toString(), dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("precio").getValue().toString(),
+                            Double.parseDouble(dataSnapshot.child("calificacion").getValue().toString()), null));
+                //Collections.reverse(itemEvents);
+                adapter.notifyDataSetChanged();
+                setListViewHeight(lvEvents);
+
             }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-        updateListView();
-
         return view;
     }
 
-    public void updateListView(){
-        adapter = new ItemAdapter(eventf, itemEvents);
-        lvEvents.setAdapter(adapter);
+    public static void setListViewHeight(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }
