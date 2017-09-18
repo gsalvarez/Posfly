@@ -26,7 +26,7 @@
 
         <EditText
             android:id="@+id/txtName"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -40,7 +40,7 @@
 
         <EditText
             android:id="@+id/txtLastname"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
 
         <EditText
             android:id="@+id/txtUser"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -68,7 +68,7 @@
 
         <EditText
             android:id="@+id/txtEmailR"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -82,7 +82,7 @@
 
         <EditText
             android:id="@+id/txtPassR"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -96,7 +96,7 @@
 
         <EditText
             android:id="@+id/txtRepassR"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
@@ -121,8 +121,8 @@
 
         <Button
             android:id="@+id/btnCreate"
-            android:layout_width="144dp"
-            android:layout_height="wrap_content"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/buttons_shape"
             android:gravity="center"

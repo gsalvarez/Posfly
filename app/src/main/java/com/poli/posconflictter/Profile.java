@@ -14,6 +14,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Profile extends Fragment {
 
+    private String name;
+    private String numberPosts;
+    private String numberStories;
+    private String numberLikes;
+
     public Profile() {
         // Required empty public constructor
     }

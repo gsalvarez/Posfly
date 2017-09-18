@@ -37,9 +37,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="@string/forgot_info"
-            android:textColor="@color/common_google_signin_btn_text_light_focused"
-            android:textSize="20sp" />
+            android:textColor="@android:color/darker_gray"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -52,7 +54,7 @@
 
         <EditText
             android:id="@+id/txtEmailF"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:ems="10"
@@ -73,8 +75,8 @@
 
         <Button
             android:id="@+id/btnForgot"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/buttons_shape"
             android:text="@string/send_email"
