@@ -37,38 +37,32 @@ public class ItemAdapterMuseum extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+
+        View rowView = convertView;
+
+        if (convertView == null) {
+            // Create a new view into the list.
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            rowView = inflater.inflate(R.layout.museum_item, parent, false);
+        }
+
+        //Set data into the view.
+        TextView txtNameM = (TextView) rowView.findViewById(R.id.txtNameM);
+        TextView txtDate = (TextView) rowView.findViewById(R.id.txtDateM);
+        TextView txtDescripcionMuseum = (TextView) rowView.findViewById(R.id.txtDescripcionMostar);
+        TextView txtAutor = (TextView) rowView.findViewById(R.id.txtAutorMuseo);
+
+        Museum item = this.items.get(position);
+        txtNameM.setText(item.getNombre());
+        txtDate.setText(String.valueOf(item.getFecha()));
+        txtDescripcionMuseum.setText(item.getDescripcion());
+        txtAutor.setText(item.getAutor());
+
+        rowView.setTag(item.getNombre());
+        return rowView;
     }
-
-    //@Override
-    //public View getView(int position, View convertView, ViewGroup parent) {
-
-      //  View rowView = convertView;
-
-    //    if (convertView == null) {
-      //      // Create a new view into the list.
-        //    LayoutInflater inflater = (LayoutInflater) context
-        //            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         //   rowView = inflater.inflate(R.layout.event_item, parent, false);
-       // }
-
-        // Set data into the view.
-       // TextView txtName = (TextView) rowView.findViewById(R.id.txtNameEv);
-       // TextView txtPlace = (TextView) rowView.findViewById(R.id.txtPlaceEv);
-       // TextView txtDate = (TextView) rowView.findViewById(R.id.txtDateEv);
-       // TextView txtHour = (TextView) rowView.findViewById(R.id.txtHourEv);
-       // TextView txtDesc = (TextView) rowView.findViewById(R.id.txtDescEv);
-
-        //Event item = this.items.get(position);
-        //txtName.setText(item.getNombre());
-        //txtPlace.setText(String.valueOf(item.getLugar()));
-      //  txtDate.setText(String.valueOf(item.getFecha()));
-    //    txtHour.setText(String.valueOf(item.getHora()));
-  //      txtDesc.setText(String.valueOf(item.getDescripcion()));
-//
-        //rowView.setTag(item.getNombre());
-      //  return rowView;
-    //}
 }

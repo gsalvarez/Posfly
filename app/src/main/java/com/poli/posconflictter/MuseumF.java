@@ -63,10 +63,9 @@ public class MuseumF extends Fragment{
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                /* FALTA LAYOUT DE ITEM MUSEUM
                 itemMuseum.add(new Museum(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(),
                                 dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("autor").getValue().toString()));
-                */
+
 
                 adapter.notifyDataSetChanged();
                 setListViewHeight(lvMuseum);
