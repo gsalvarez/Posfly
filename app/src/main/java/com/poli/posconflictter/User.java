@@ -5,16 +5,17 @@ public class User {
     private String Nombre;
     private String Apellido;
     private String Correo;
+    private String Rol;
 
     public User () {
 
     }
-    public User (String userid, String name, String lastname, String email) {
+    public User (String userid, String name, String lastname, String email, String rol) {
         this.Usuario = userid;
         this.Nombre = name;
         this.Apellido = lastname;
-
         this.Correo = email;
+        this.Rol = rol;
     }
 
     public String getUsuario() {
@@ -47,5 +48,13 @@ public class User {
 
     public void setCorreo(String correo) {
         Correo = correo;
+    }
+
+    public String getRol() {
+        return Rol;
+    }
+
+    public void setRol(String rol) {
+        Rol = rol;
     }
 }

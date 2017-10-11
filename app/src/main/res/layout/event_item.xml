@@ -4,143 +4,126 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/gradient"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="10dp">
-
-    <ImageView
-        android:id="@+id/imgEv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:maxHeight="24dp"
-        android:maxWidth="24dp"
-        android:src="@drawable/ic_account_circle_black_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/txtNameEv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtNameEv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgPlace"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:minHeight="20dp"
+                android:minWidth="20dp"
+                android:src="@drawable/ic_pin_drop_black_48dp" />
 
-                <ImageView
-                    android:id="@+id/imgPlace"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:minHeight="20dp"
-                    android:minWidth="20dp"
-                    android:src="@drawable/ic_pin_drop_black_48dp" />
-
-                <ImageView
-                    android:id="@+id/imgDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:minHeight="20dp"
-                    android:minWidth="20dp"
-                    android:src="@drawable/ic_insert_invitation_black_48dp" />
-
-                <ImageView
-                    android:id="@+id/imgHour"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="20dp"
-                    android:maxWidth="20dp"
-                    android:minHeight="20dp"
-                    android:minWidth="20dp"
-                    android:src="@drawable/ic_access_time_black_48dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imgDate"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:minHeight="20dp"
+                android:minWidth="20dp"
+                android:src="@drawable/ic_insert_invitation_black_48dp" />
 
-                <TextView
-                    android:id="@+id/txtPlaceEv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="start|center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtDateEv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="start|center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtHourEv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="start|center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgHour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:maxHeight="20dp"
+                android:maxWidth="20dp"
+                android:minHeight="20dp"
+                android:minWidth="20dp"
+                android:src="@drawable/ic_access_time_black_48dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
-                android:id="@+id/txtDescEv"
+                android:id="@+id/txtPlaceEv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textColor="@android:color/black" />
+                android:gravity="start|center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtDateEv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start|center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtHourEv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start|center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtDescEv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>

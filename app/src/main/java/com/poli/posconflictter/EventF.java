@@ -8,9 +8,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +47,18 @@ public class EventF extends Fragment {
         mDatabase = database.getReference("Event");
 
         FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(R.id.btnNewEvent);
+        Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.fragment_container, new Login());
+                transaction.commit();
+            }
+        });
 
         btnNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override

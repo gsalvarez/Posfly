@@ -126,13 +126,13 @@ public class Register extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getActivity().getApplication().getApplicationContext(), "Cuenta creada con éxito", Toast.LENGTH_SHORT).show();
-                                        mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail));
+                                        mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail, "user"));
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction transaction = fragmentManager.beginTransaction();
                                         transaction.replace(R.id.fragment_container, new Start());
                                         transaction.commit();
                                     }else {
-                                        Toast.makeText(getActivity().getApplication().getApplicationContext(), "La dirección de correo ya está en uso", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity().getApplication().getApplicationContext(), "Error en la conexión", Toast.LENGTH_SHORT).show();
                                     }
                                     progressDialog.dismiss();
                                 }
