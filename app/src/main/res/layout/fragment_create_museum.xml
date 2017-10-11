@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/textViewMuseum"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="50dp"
         android:layout_weight="1"
         android:gravity="center"
@@ -20,12 +20,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/txtMuseum"
+            android:id="@+id/txtNameMuseum"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -33,7 +33,7 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Nombre Anécdota"
+            android:hint="Nombre Anécdota"
             android:textColor="@android:color/black"
             android:textColorHighlight="@color/colorPrimary"
             android:textColorHint="@android:color/darker_gray"
@@ -48,11 +48,61 @@
             android:ems="10"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Día Suceso"
+            android:hint="Día del Suceso"
             android:textColor="@android:color/black"
             android:textColorHighlight="@color/colorPrimary"
             android:textColorHint="@android:color/darker_gray"
             android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/txtDescriptionM"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            android:hint="Descripción"
+            android:textColor="@android:color/background_dark"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/txtAuthorMuseum"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:hint="Autor Anécdota"
+            android:textColor="@android:color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColorLink="@color/colorAccent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonCreateMuseum"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/buttons_shape"
+            android:gravity="center"
+            android:text="Crear Anécdota"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>
