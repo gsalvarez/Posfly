@@ -36,7 +36,7 @@ public class Start extends Fragment {
                         break;
                     case 1:
                         //do what you want when tab 1 is selected
-                        transaction.replace(R.id.frag_container, new Museum(), "fm");
+                        transaction.replace(R.id.frag_container, new MuseumF(), "fm");
                         break;
                     case 2:
                         //do what you want when tab 2 is selected
