@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by sosa on 11/10/2017.
- */
 
 public class MuseumF extends Fragment{
 
@@ -66,8 +63,10 @@ public class MuseumF extends Fragment{
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                itemMuseum.add(new Museum(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("descripcion").getValue().toString(),
-                        dataSnapshot.child("autor").getValue().toString()));
+                /* FALTA LAYOUT DE ITEM MUSEUM
+                itemMuseum.add(new Museum(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(),
+                                dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("autor").getValue().toString()));
+                */
 
                 adapter.notifyDataSetChanged();
                 setListViewHeight(lvMuseum);

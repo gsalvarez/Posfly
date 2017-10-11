@@ -24,10 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by sosa on 10/10/2017.
- */
-
 public class CreateMuseum extends Fragment {
     Calendar myCalendar=Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;

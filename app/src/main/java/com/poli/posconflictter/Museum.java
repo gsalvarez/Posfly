@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Museum  {
 
     private String nombre;
-    private String date;
+    private String fecha;
     private String descripcion;
     private String autor;
 
@@ -27,7 +27,7 @@ public class Museum  {
 
     public Museum(String name, String date, String description, String author){
         this.nombre=name;
-        this.date=date;
+        this.fecha=date;
         this.descripcion=description;
         this.autor=author;
 
@@ -39,11 +39,11 @@ public class Museum  {
     public void setNombre(String name){
         this.nombre=name;
     }
-    public String getDate(){
-        return date;
+    public String getFecha(){
+        return fecha;
     }
-    public void setDate(String date){
-        this.date=date;
+    public void setFecha(String date){
+        this.fecha=date;
     }
     public String getDescripcion(){
         return descripcion;
