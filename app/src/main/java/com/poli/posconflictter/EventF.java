@@ -79,7 +79,7 @@ public class EventF extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 itemEvents.add(new Event(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("hora").getValue().toString(),
                             dataSnapshot.child("lugar").getValue().toString(), dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("precio").getValue().toString(),
-                            Double.parseDouble(dataSnapshot.child("calificacion").getValue().toString()), null));
+                            Double.parseDouble(dataSnapshot.child("calificacion").getValue().toString()), null, dataSnapshot.child("creador").getValue().toString()));
                 //Collections.reverse(itemEvents);
                 adapter.notifyDataSetChanged();
                 setListViewHeight(lvEvents);
