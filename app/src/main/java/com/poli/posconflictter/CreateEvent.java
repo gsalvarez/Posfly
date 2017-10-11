@@ -118,7 +118,7 @@ public class CreateEvent extends Fragment{
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento creado con éxito", Toast.LENGTH_SHORT).show();
-                    mDatabase.child(mDatabase.push().getKey()).setValue(new Event (sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null));
+                    mDatabase.child(mDatabase.push().getKey()).setValue(new Event (sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().toString()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                 }

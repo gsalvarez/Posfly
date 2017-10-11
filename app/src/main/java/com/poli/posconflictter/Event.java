@@ -12,12 +12,13 @@ public class Event {
     private String Precio;
     private double Calificacion;
     private ArrayList<String> Comentarios;
+    private String Creador;
 
 
     public Event () {
 
     }
-    public Event (String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments) {
+    public Event (String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments, String creador) {
         this.Nombre = name;
         this.Fecha = date;
         this.Hora = hour;
@@ -26,6 +27,7 @@ public class Event {
         this.Precio = price;
         this.Comentarios = comments;
         this.Calificacion = rating;
+        this.Creador = creador;
     }
 
     public String getNombre() {
@@ -92,5 +94,11 @@ public class Event {
         Comentarios = comentarios;
     }
 
+    public void setCreador(String creador) {
+        Creador = creador;
+    }
 
+    public String getCreador() {
+        return Creador;
+    }
 }
