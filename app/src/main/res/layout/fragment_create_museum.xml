@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/textViewMuseum"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="50dp"
         android:layout_weight="1"
         android:gravity="center"
@@ -20,20 +20,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/txtNameMuseum"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:inputType="textPersonName"
             android:hint="Nombre Anécdota"
+            android:inputType="textPersonName"
             android:textColor="@android:color/black"
             android:textColorHighlight="@color/colorPrimary"
             android:textColorHint="@android:color/darker_gray"
@@ -42,7 +42,7 @@
         <EditText
             android:id="@+id/txtDateMuseum"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
@@ -57,13 +57,13 @@
         <EditText
             android:id="@+id/txtDescriptionM"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:inputType="textMultiLine"
             android:hint="Descripción"
+            android:inputType="textMultiLine"
             android:textColor="@android:color/background_dark"
             android:textColorHighlight="@color/colorPrimary"
             android:textColorHint="@android:color/darker_gray"
@@ -72,7 +72,7 @@
         <EditText
             android:id="@+id/txtAuthorMuseum"
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
@@ -87,9 +87,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
