@@ -35,6 +35,7 @@ public class EventF extends Fragment {
     List<Event> itemEvents = new ArrayList<>();
     EventF eventf = this;
 
+    String eventKey = "";
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -83,7 +84,7 @@ public class EventF extends Fragment {
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                itemEvents.add(new Event(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("hora").getValue().toString(),
+                itemEvents.add(new Event(dataSnapshot.child("key").getValue().toString(), dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("hora").getValue().toString(),
                             dataSnapshot.child("lugar").getValue().toString(), dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("precio").getValue().toString(),
                             Double.parseDouble(dataSnapshot.child("calificacion").getValue().toString()), null, dataSnapshot.child("creador").getValue().toString()));
                 //Collections.reverse(itemEvents);
@@ -124,28 +125,38 @@ public class EventF extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Event event = (Event) parent.getItemAtPosition(position);
+                eventKey = event.getKey();
                 if(event.getCreador().equals(mAuth.getCurrentUser().getEmail())){
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Opciones de evento");
                     final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.edit_dialog, (ViewGroup) getView(), false);
                     Button btnEditOption = (Button) viewInflated.findViewById(R.id.editOption);
                     Button btnDeleteOption = (Button) viewInflated.findViewById(R.id.deleteOption);
 
+                    alertDialog.setView(viewInflated);
+                    alertDialog.show();
+
                     btnEditOption.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Click en editar", Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            EditEvent editEventF = new EditEvent();
+                            Bundle args = new Bundle();
+                            args.putString("key", eventKey);
+                            editEventF.setArguments(args);
+                            transaction.addToBackStack("fe");
+                            transaction.replace(R.id.fragment_container, editEventF, "fee");
+                            transaction.commit();
                         }
                     });
                     btnDeleteOption.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Click en eliminar", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Función en desarrollo", Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    alertDialog.setView(viewInflated);
-                    alertDialog.show();
                 }
                 else{
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), "No tienes permiso para editar o eliminar este evento", Toast.LENGTH_SHORT).show();

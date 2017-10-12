@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Event {
 
+    private String Key;
     private String Nombre;
     private String Fecha;
     private String Hora;
@@ -18,7 +19,8 @@ public class Event {
     public Event () {
 
     }
-    public Event (String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments, String creador) {
+    public Event (String key, String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments, String creador) {
+        this.Key = key;
         this.Nombre = name;
         this.Fecha = date;
         this.Hora = hour;
@@ -28,6 +30,14 @@ public class Event {
         this.Comentarios = comments;
         this.Calificacion = rating;
         this.Creador = creador;
+    }
+
+    public String getKey() {
+        return Key;
+    }
+
+    public void setKey(String key) {
+        Key = key;
     }
 
     public String getNombre() {

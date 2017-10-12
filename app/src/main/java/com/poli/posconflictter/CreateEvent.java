@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +119,8 @@ public class CreateEvent extends Fragment{
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento creado con éxito", Toast.LENGTH_SHORT).show();
-                    mDatabase.child(mDatabase.push().getKey()).setValue(new Event (sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().toString()));
+                    String key = mDatabase.child(mDatabase.push().getKey()).getKey();
+                    mDatabase.child(key).setValue(new Event (key, sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                 }
