@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Profile extends Fragment {
 
@@ -19,8 +20,14 @@ public class Profile extends Fragment {
     private String numberStories;
     private String numberLikes;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
     public Profile() {
-        // Required empty public constructor
+        if (user != null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+        }
     }
 
     @Override
