@@ -30,6 +30,7 @@ public class EditEvent extends Fragment{
     TimePickerDialog.OnTimeSetListener hour;
     private ProgressDialog progressDialog;
 
+    private String key;
     private String info = "";
     private String sName;
     private String sDate;
@@ -58,18 +59,20 @@ public class EditEvent extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
+        key = getArguments().getString("key");
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
-        txtName = (EditText) view.findViewById(R.id.txtNameE);
-        txtDate = (EditText) view.findViewById(R.id.txtDate);
-        txtHour = (EditText) view.findViewById(R.id.txtHour);
-        txtPlace = (EditText) view.findViewById(R.id.txtPlace);
-        txtDescription = (EditText) view.findViewById(R.id.txtDescription);
-        txtPrice = (EditText) view.findViewById(R.id.txtPrice);
-        Button btnEdit = (Button) view.findViewById(R.id.btnEditE);
+        txtName = (EditText) view.findViewById(R.id.txtEditName);
+        txtDate = (EditText) view.findViewById(R.id.txtEditDate);
+        txtHour = (EditText) view.findViewById(R.id.txtEditHour);
+        txtPlace = (EditText) view.findViewById(R.id.txtEditPlace);
+        txtDescription = (EditText) view.findViewById(R.id.txtEditDescription);
+        txtPrice = (EditText) view.findViewById(R.id.txtEditPrice);
+        Button btnEdit = (Button) view.findViewById(R.id.btnEditEvent);
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -117,8 +120,8 @@ public class EditEvent extends Fragment{
                 progressDialog.setMessage("Editando evento, por favor espera...");
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
-                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento creado con éxito", Toast.LENGTH_SHORT).show();
-                    mDatabase.child(mDatabase.push().getKey()).setValue(new Event (sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().toString()));
+                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento editado con éxito", Toast.LENGTH_SHORT).show();
+                    mDatabase.child(key).setValue(new Event (key, sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                 }
