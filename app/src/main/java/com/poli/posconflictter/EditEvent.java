@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateEvent extends Fragment{
+public class EditEvent extends Fragment{
 
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
@@ -49,14 +49,14 @@ public class CreateEvent extends Fragment{
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-    public CreateEvent () {
+    public EditEvent () {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_event, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
@@ -69,7 +69,7 @@ public class CreateEvent extends Fragment{
         txtPlace = (EditText) view.findViewById(R.id.txtPlace);
         txtDescription = (EditText) view.findViewById(R.id.txtDescription);
         txtPrice = (EditText) view.findViewById(R.id.txtPrice);
-        Button btnCreate = (Button) view.findViewById(R.id.btnCreateE);
+        Button btnEdit = (Button) view.findViewById(R.id.btnEditE);
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -104,7 +104,7 @@ public class CreateEvent extends Fragment{
         });
 
         //Se oprime el botón de crear evento
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sName = txtName.getText().toString().trim();
@@ -114,7 +114,7 @@ public class CreateEvent extends Fragment{
                 sDescription = txtDescription.getText().toString().trim();
                 sPrice = txtPrice.getText().toString().trim();
 
-                progressDialog.setMessage("Creando evento, por favor espera...");
+                progressDialog.setMessage("Editando evento, por favor espera...");
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento creado con éxito", Toast.LENGTH_SHORT).show();

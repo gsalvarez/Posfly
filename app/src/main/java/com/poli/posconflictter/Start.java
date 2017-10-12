@@ -40,7 +40,7 @@ public class Start extends Fragment {
                         break;
                     case 2:
                         //do what you want when tab 2 is selected
-                        transaction.replace(R.id.frag_container, new Profile(), "fp");
+                        transaction.replace(R.id.frag_container, new ProfileF(), "fp");
                         break;
                     default:
                         break;

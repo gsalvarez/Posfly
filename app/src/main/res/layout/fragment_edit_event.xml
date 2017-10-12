@@ -12,7 +12,7 @@
         android:layout_margin="50dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/create"
+        android:text="@string/edit_event"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
@@ -25,91 +25,84 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/txtName"
+            android:id="@+id/txtNameE"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/name"
+            android:hint="@string/event_name"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/txtDate"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/date"
+            android:inputType="none"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/txtHour"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:hint="@string/hour"
+            android:inputType="none"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/txtPlace"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/place"
             android:inputType="textPersonName"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray"
             android:textColorLink="@color/colorAccent" />
 
         <EditText
-            android:id="@+id/txtLastname"
+            android:id="@+id/txtDescription"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/lastname"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColorLink="@color/colorAccent" />
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:textColorHint="@android:color/darker_gray" />
 
         <EditText
-            android:id="@+id/txtUser"
+            android:id="@+id/txtPrice"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/user"
-            android:inputType="textPersonName"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColorLink="@color/colorAccent" />
-
-        <EditText
-            android:id="@+id/txtEmailR"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/email"
-            android:inputType="text|textEmailAddress"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColorLink="@color/colorAccent" />
-
-        <EditText
-            android:id="@+id/txtPassR"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:hint="@string/pass"
-            android:inputType="textPassword"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColorLink="@color/colorAccent" />
-
-        <EditText
-            android:id="@+id/txtRepassR"
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:ems="10"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:hint="@string/repass"
-            android:inputType="textPassword"
-            android:textColor="@android:color/black"
-            android:textColorHint="@android:color/darker_gray"
-            android:textColorLink="@color/colorAccent" />
-
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
+            android:singleLine="true"
+            android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,13 +115,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCreate"
+            android:id="@+id/btnEditE"
             android:layout_width="220dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/buttons_shape"
             android:gravity="center"
-            android:text="@string/create"
+            android:text="@string/create_event"
             android:textColor="@android:color/white" />
     </LinearLayout>
 </LinearLayout>
