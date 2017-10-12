@@ -13,6 +13,7 @@ import java.util.List;
  * Created by sosa on 11/10/2017.
  */
 
+//Prueba Commit
 public class ItemAdapterMuseum extends BaseAdapter {
     private Context context;
     private List<Museum> items;
