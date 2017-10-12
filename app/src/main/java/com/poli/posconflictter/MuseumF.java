@@ -66,7 +66,6 @@ public class MuseumF extends Fragment{
                 itemMuseum.add(new Museum(dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(),
                                 dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("autor").getValue().toString()));
 
-
                 adapter.notifyDataSetChanged();
                 setListViewHeight(lvMuseum);
 

@@ -35,7 +35,7 @@ public class EventF extends Fragment {
     List<Event> itemEvents = new ArrayList<>();
     EventF eventf = this;
 
-    String eventKey = "";
+    ArrayList<String> data = new ArrayList<>();
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -54,18 +54,6 @@ public class EventF extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(R.id.btnNewEvent);
-        Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, new Login());
-                transaction.commit();
-            }
-        });
 
         btnNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +113,13 @@ public class EventF extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Event event = (Event) parent.getItemAtPosition(position);
-                eventKey = event.getKey();
+                data.add(event.getKey());
+                data.add(event.getNombre());
+                data.add(event.getFecha());
+                data.add(event.getHora());
+                data.add(event.getLugar());
+                data.add(event.getDescripcion());
+                data.add(event.getPrecio());
                 if(event.getCreador().equals(mAuth.getCurrentUser().getEmail())){
                     final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Opciones de evento");
@@ -144,7 +138,7 @@ public class EventF extends Fragment {
                             FragmentTransaction transaction = fragmentManager.beginTransaction();
                             EditEvent editEventF = new EditEvent();
                             Bundle args = new Bundle();
-                            args.putString("key", eventKey);
+                            args.putStringArrayList("data", data);
                             editEventF.setArguments(args);
                             transaction.addToBackStack("fe");
                             transaction.replace(R.id.fragment_container, editEventF, "fee");
@@ -154,7 +148,10 @@ public class EventF extends Fragment {
                     btnDeleteOption.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Función en desarrollo", Toast.LENGTH_SHORT).show();
+                            mDatabase.child(data.get(0)).setValue(null);
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                            alertDialog.dismiss();
                         }
                     });
                 }

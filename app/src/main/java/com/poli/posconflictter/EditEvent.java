@@ -1,6 +1,7 @@
 package com.poli.posconflictter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -30,6 +31,7 @@ public class EditEvent extends Fragment{
     TimePickerDialog.OnTimeSetListener hour;
     private ProgressDialog progressDialog;
 
+    private ArrayList<String> data = new ArrayList<>();
     private String key;
     private String info = "";
     private String sName;
@@ -59,7 +61,7 @@ public class EditEvent extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_event, container, false);
 
-        key = getArguments().getString("key");
+        data = getArguments().getStringArrayList("data");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
@@ -73,6 +75,13 @@ public class EditEvent extends Fragment{
         txtDescription = (EditText) view.findViewById(R.id.txtEditDescription);
         txtPrice = (EditText) view.findViewById(R.id.txtEditPrice);
         Button btnEdit = (Button) view.findViewById(R.id.btnEditEvent);
+
+        txtName.setText(data.get(1));
+        txtDate.setText(data.get(2));
+        txtHour.setText(data.get(3));
+        txtPlace.setText(data.get(4));
+        txtDescription.setText(data.get(5));
+        txtPrice.setText(data.get(6));
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -121,7 +130,7 @@ public class EditEvent extends Fragment{
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento editado con éxito", Toast.LENGTH_SHORT).show();
-                    mDatabase.child(key).setValue(new Event (key, sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
+                    mDatabase.child(data.get(0)).setValue(new Event (data.get(0), sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                 }

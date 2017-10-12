@@ -28,7 +28,7 @@ public class ProfileF extends Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        /*
+
         Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +41,6 @@ public class ProfileF extends Fragment {
                 transaction.commit();
             }
         });
-        */
 
         return view;
     }
