@@ -171,7 +171,6 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/buttons_shape"
-            android:backgroundTint="@drawable/buttons_shape"
             android:text="@string/logout"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
