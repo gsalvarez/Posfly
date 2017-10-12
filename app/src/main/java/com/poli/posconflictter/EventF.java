@@ -1,16 +1,22 @@
 package com.poli.posconflictter;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +38,7 @@ public class EventF extends Fragment {
     EventF eventf = this;
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     public EventF() {
         // Required empty public constructor
@@ -45,6 +52,7 @@ public class EventF extends Fragment {
         lvEvents = (ListView) view.findViewById(R.id.lvEvents);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
+        mAuth = FirebaseAuth.getInstance();
 
         FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(R.id.btnNewEvent);
         Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
@@ -104,6 +112,47 @@ public class EventF extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("TAG", String.valueOf(position));
+            }
+        });
+
+        lvEvents.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Event event = (Event) parent.getItemAtPosition(position);
+                if(event.getCreador().equals(mAuth.getCurrentUser().getEmail())){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setTitle("Opciones de evento");
+                    final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.edit_dialog, (ViewGroup) getView(), false);
+                    Button btnEditOption = (Button) viewInflated.findViewById(R.id.editOption);
+                    Button btnDeleteOption = (Button) viewInflated.findViewById(R.id.deleteOption);
+
+                    btnEditOption.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Click en editar", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    btnDeleteOption.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Click en eliminar", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    alertDialog.setView(viewInflated);
+                    alertDialog.show();
+                }
+                else{
+                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "No tienes permiso para editar o eliminar este evento", Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
         });
 
