@@ -24,6 +24,11 @@ public class Start extends Fragment {
 
         tabs = (TabLayout) view.findViewById(R.id.tabs);
 
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.frag_container, new EventF(), "fe");
+        transaction.commit();
+
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
