@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,14 +43,14 @@ public class ItemAdapterMuseum extends BaseAdapter {
             // Create a new view into the list.
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.museum_item, parent, false);
+            rowView = inflater.inflate(com.poli.posfly.R.layout.museum_item, parent, false);
         }
 
         //Set data into the view.
-        TextView txtNameM = (TextView) rowView.findViewById(R.id.txtNameM);
-        TextView txtDate = (TextView) rowView.findViewById(R.id.txtDateM);
-        TextView txtDescripcionMuseum = (TextView) rowView.findViewById(R.id.txtDescripcionMostar);
-        TextView txtAutor = (TextView) rowView.findViewById(R.id.txtAutorMuseo);
+        TextView txtNameM = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtNameM);
+        TextView txtDate = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtDateM);
+        TextView txtDescripcionMuseum = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtDescripcionMostar);
+        TextView txtAutor = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtAutorMuseo);
 
         Museum item = this.items.get(position);
         txtNameM.setText(item.getNombre());

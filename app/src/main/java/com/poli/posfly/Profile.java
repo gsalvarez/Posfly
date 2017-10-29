@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 public class Profile {
 

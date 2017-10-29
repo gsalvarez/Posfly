@@ -1,6 +1,6 @@
 <resources>
     <!--TITLE-->
-        <string name="app_name">Posconflictter</string>
+        <string name="app_name">Posfly</string>
     <!--LOGIN-->
         <string name="email">Correo electrónico</string>
         <string name="pass">Contraseña</string>

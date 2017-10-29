@@ -1,6 +1,7 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -10,7 +11,6 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +24,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateEvent extends Fragment{
+public class EditEvent extends Fragment{
 
     Calendar myCalendar = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener date;
     TimePickerDialog.OnTimeSetListener hour;
     private ProgressDialog progressDialog;
 
+    private ArrayList<String> data = new ArrayList<>();
+    private String key;
     private String info = "";
     private String sName;
     private String sDate;
@@ -50,27 +52,36 @@ public class CreateEvent extends Fragment{
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
-    public CreateEvent () {
+    public EditEvent () {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_event, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_edit_event, container, false);
+
+        data = getArguments().getStringArrayList("data");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
-        txtName = (EditText) view.findViewById(R.id.txtNameE);
-        txtDate = (EditText) view.findViewById(R.id.txtDate);
-        txtHour = (EditText) view.findViewById(R.id.txtHour);
-        txtPlace = (EditText) view.findViewById(R.id.txtPlace);
-        txtDescription = (EditText) view.findViewById(R.id.txtDescription);
-        txtPrice = (EditText) view.findViewById(R.id.txtPrice);
-        Button btnCreate = (Button) view.findViewById(R.id.btnCreateE);
+        txtName = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditName);
+        txtDate = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditDate);
+        txtHour = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditHour);
+        txtPlace = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditPlace);
+        txtDescription = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditDescription);
+        txtPrice = (EditText) view.findViewById(com.poli.posfly.R.id.txtEditPrice);
+        Button btnEdit = (Button) view.findViewById(com.poli.posfly.R.id.btnEditEvent);
+
+        txtName.setText(data.get(1));
+        txtDate.setText(data.get(2));
+        txtHour.setText(data.get(3));
+        txtPlace.setText(data.get(4));
+        txtDescription.setText(data.get(5));
+        txtPrice.setText(data.get(6));
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -105,7 +116,7 @@ public class CreateEvent extends Fragment{
         });
 
         //Se oprime el botón de crear evento
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sName = txtName.getText().toString().trim();
@@ -115,12 +126,11 @@ public class CreateEvent extends Fragment{
                 sDescription = txtDescription.getText().toString().trim();
                 sPrice = txtPrice.getText().toString().trim();
 
-                progressDialog.setMessage("Creando evento, por favor espera...");
+                progressDialog.setMessage("Editando evento, por favor espera...");
                 progressDialog.show();
                 if (checkFields(sName, sDate, sHour, sPlace, sDescription, sPrice)) {
-                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento creado con éxito", Toast.LENGTH_SHORT).show();
-                    String key = mDatabase.child(mDatabase.push().getKey()).getKey();
-                    mDatabase.child(key).setValue(new Event (key, sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
+                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento editado con éxito", Toast.LENGTH_SHORT).show();
+                    mDatabase.child(data.get(0)).setValue(new Event (data.get(0), sName, sDate, sHour, sPlace, sDescription, sPrice, 0, null, mAuth.getCurrentUser().getEmail()));
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.popBackStackImmediate();
                 }

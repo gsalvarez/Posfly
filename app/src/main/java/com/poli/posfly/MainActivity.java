@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.poli.posfly.R.layout.activity_main);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -29,11 +29,10 @@ public class MainActivity extends AppCompatActivity {
             fragment = new Start();
         }
         else {
-            Log.d("TAG", "NOT Logged");
             fragment = new Login();
 
         }
-        transaction.add(R.id.fragment_container, fragment, "fi");
+        transaction.add(com.poli.posfly.R.id.fragment_container, fragment, "fi");
         transaction.commit();
     }
 

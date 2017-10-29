@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -59,7 +59,7 @@ public class Register extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_register, container, false);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("User");
@@ -82,13 +82,13 @@ public class Register extends Fragment {
             }
         };
 
-        txtName = (EditText) view.findViewById(R.id.txtName);
-        txtLastname = (EditText) view.findViewById(R.id.txtLastname);
-        txtUser = (EditText) view.findViewById(R.id.txtUser);
-        txtEmail = (EditText) view.findViewById(R.id.txtEmailR);
-        txtPass = (EditText) view.findViewById(R.id.txtPassR);
-        txtRepass = (EditText) view.findViewById(R.id.txtRepassR);
-        Button btnCreate = (Button) view.findViewById(R.id.btnCreate);
+        txtName = (EditText) view.findViewById(com.poli.posfly.R.id.txtName);
+        txtLastname = (EditText) view.findViewById(com.poli.posfly.R.id.txtLastname);
+        txtUser = (EditText) view.findViewById(com.poli.posfly.R.id.txtUser);
+        txtEmail = (EditText) view.findViewById(com.poli.posfly.R.id.txtEmailR);
+        txtPass = (EditText) view.findViewById(com.poli.posfly.R.id.txtPassR);
+        txtRepass = (EditText) view.findViewById(com.poli.posfly.R.id.txtRepassR);
+        Button btnCreate = (Button) view.findViewById(com.poli.posfly.R.id.btnCreate);
 
         //Al oprimir el botón crear, verifica todos los campos
         btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class Register extends Fragment {
                                         mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail, "user"));
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                        transaction.replace(R.id.fragment_container, new Start());
+                                        transaction.replace(com.poli.posfly.R.id.fragment_container, new Start());
                                         transaction.commit();
                                     }else {
                                         Toast.makeText(getActivity().getApplication().getApplicationContext(), "Error en la conexión", Toast.LENGTH_SHORT).show();

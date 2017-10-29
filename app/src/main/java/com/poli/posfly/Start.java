@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -20,13 +20,13 @@ public class Start extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_start, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_start, container, false);
 
-        tabs = (TabLayout) view.findViewById(R.id.tabs);
+        tabs = (TabLayout) view.findViewById(com.poli.posfly.R.id.tabs);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.frag_container, new EventF(), "fe");
+        transaction.add(com.poli.posfly.R.id.frag_container, new EventF(), "fe");
         transaction.commit();
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -37,15 +37,15 @@ public class Start extends Fragment {
                 switch (tabs.getSelectedTabPosition()) {
                     case 0:
                         //do what you want when tab 0 is selected
-                        transaction.replace(R.id.frag_container, new EventF(), "fe");
+                        transaction.replace(com.poli.posfly.R.id.frag_container, new EventF(), "fe");
                         break;
                     case 1:
                         //do what you want when tab 1 is selected
-                        transaction.replace(R.id.frag_container, new MuseumF(), "fm");
+                        transaction.replace(com.poli.posfly.R.id.frag_container, new MuseumF(), "fm");
                         break;
                     case 2:
                         //do what you want when tab 2 is selected
-                        transaction.replace(R.id.frag_container, new ProfileF(), "fp");
+                        transaction.replace(com.poli.posfly.R.id.frag_container, new ProfileF(), "fp");
                         break;
                     default:
                         break;

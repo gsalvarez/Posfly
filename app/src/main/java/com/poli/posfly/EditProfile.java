@@ -1,8 +1,6 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,16 +32,16 @@ public class EditProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
-        Button btnUpdate = (Button) view.findViewById(R.id.btnUpdate);
-        txtName = (EditText) view.findViewById(R.id.txtName);
-        txtLastname = (EditText) view.findViewById(R.id.txtLastname);
-        txtEmail = (EditText) view.findViewById(R.id.txtEmail);
-        txtPassR = (EditText) view.findViewById(R.id.txtPassR);
+        Button btnUpdate = (Button) view.findViewById(com.poli.posfly.R.id.btnUpdate);
+        txtName = (EditText) view.findViewById(com.poli.posfly.R.id.txtName);
+        txtLastname = (EditText) view.findViewById(com.poli.posfly.R.id.txtLastname);
+        txtEmail = (EditText) view.findViewById(com.poli.posfly.R.id.txtEmail);
+        txtPassR = (EditText) view.findViewById(com.poli.posfly.R.id.txtPassR);
 
         //Click en el botón de Login valida la información para ser actualizada
         btnUpdate.setOnClickListener(new View.OnClickListener() {

@@ -1,15 +1,13 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.app.ActivityManager;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,18 +48,18 @@ public class CreateMuseum extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view=inflater.inflate(R.layout.fragment_create_museum, container, false);
+        View view=inflater.inflate(com.poli.posfly.R.layout.fragment_create_museum, container, false);
 
         final FirebaseDatabase database=FirebaseDatabase.getInstance();
         mDatabase=database.getReference("Museum");
         mAuth=FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(getActivity());
 
-        txtNameMuseum=(EditText)view.findViewById(R.id.txtNameMuseum);
-        txtDateMuseum=(EditText)view.findViewById(R.id.txtDateMuseum);
-        txtDescriptionMuseum=(EditText)view.findViewById(R.id.txtDescriptionM);
-        txtAuthor=(EditText)view.findViewById(R.id.txtAuthorMuseum);
-        buttonMuseum=(Button)view.findViewById(R.id.buttonCreateMuseum);
+        txtNameMuseum=(EditText)view.findViewById(com.poli.posfly.R.id.txtNameMuseum);
+        txtDateMuseum=(EditText)view.findViewById(com.poli.posfly.R.id.txtDateMuseum);
+        txtDescriptionMuseum=(EditText)view.findViewById(com.poli.posfly.R.id.txtDescriptionM);
+        txtAuthor=(EditText)view.findViewById(com.poli.posfly.R.id.txtAuthorMuseum);
+        buttonMuseum=(Button)view.findViewById(com.poli.posfly.R.id.buttonCreateMuseum);
 
         date = new DatePickerDialog.OnDateSetListener() {
             @Override

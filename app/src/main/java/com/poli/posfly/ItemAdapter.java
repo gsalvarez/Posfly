@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ItemAdapter extends BaseAdapter {
@@ -44,15 +43,15 @@ public class ItemAdapter extends BaseAdapter {
             // Create a new view into the list.
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.event_item, parent, false);
+            rowView = inflater.inflate(com.poli.posfly.R.layout.event_item, parent, false);
         }
 
         // Set data into the view.
-        TextView txtName = (TextView) rowView.findViewById(R.id.txtNameEv);
-        TextView txtPlace = (TextView) rowView.findViewById(R.id.txtPlaceEv);
-        TextView txtDate = (TextView) rowView.findViewById(R.id.txtDateEv);
-        TextView txtHour = (TextView) rowView.findViewById(R.id.txtHourEv);
-        TextView txtDesc = (TextView) rowView.findViewById(R.id.txtDescEv);
+        TextView txtName = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtNameEv);
+        TextView txtPlace = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtPlaceEv);
+        TextView txtDate = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtDateEv);
+        TextView txtHour = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtHourEv);
+        TextView txtDesc = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtDescEv);
 
         Event item = this.items.get(position);
         txtName.setText(item.getNombre());

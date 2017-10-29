@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,16 +44,16 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_login, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
-        TextView tvReg = (TextView) view.findViewById(R.id.tvReg);
-        TextView tvForg = (TextView) view.findViewById(R.id.tvForgot);
-        Button btnLogin = (Button) view.findViewById(R.id.btnLogin);
-        txtEmail = (EditText) view.findViewById(R.id.txtEmailL);
-        txtPass = (EditText) view.findViewById(R.id.txtPassL);
+        TextView tvReg = (TextView) view.findViewById(com.poli.posfly.R.id.tvReg);
+        TextView tvForg = (TextView) view.findViewById(com.poli.posfly.R.id.tvForgot);
+        Button btnLogin = (Button) view.findViewById(com.poli.posfly.R.id.btnLogin);
+        txtEmail = (EditText) view.findViewById(com.poli.posfly.R.id.txtEmailL);
+        txtPass = (EditText) view.findViewById(com.poli.posfly.R.id.txtPassL);
 
         //Click en el botón de registro lleva al fragmento de registro
         tvReg.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +62,7 @@ public class Login extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fi");
-                transaction.replace(R.id.fragment_container, new Register(), "fr");
+                transaction.replace(com.poli.posfly.R.id.fragment_container, new Register(), "fr");
                 transaction.commit();
             }
         });
@@ -70,7 +73,7 @@ public class Login extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fi");
-                transaction.replace(R.id.fragment_container, new Forgot(), "ff");
+                transaction.replace(com.poli.posfly.R.id.fragment_container, new Forgot(), "ff");
                 transaction.commit();
             }
         });
@@ -105,7 +108,7 @@ public class Login extends Fragment {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 FragmentManager fragmentManager = getFragmentManager();
                                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                transaction.replace(R.id.fragment_container, new Start(), "fs");
+                                transaction.replace(com.poli.posfly.R.id.fragment_container, new Start(), "fs");
                                 transaction.commit();
                             } else {
                                 // Mensaje si no inicia sesión

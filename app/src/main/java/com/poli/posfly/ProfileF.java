@@ -1,10 +1,9 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +23,12 @@ public class ProfileF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_profile, container, false);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        Button btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        Button btnLogout = (Button) view.findViewById(com.poli.posfly.R.id.btnLogout);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +36,7 @@ public class ProfileF extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.fragment_container, new Login());
+                transaction.replace(com.poli.posfly.R.id.fragment_container, new Login());
                 transaction.commit();
             }
         });

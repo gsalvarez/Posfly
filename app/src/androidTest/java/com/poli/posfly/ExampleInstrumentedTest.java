@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

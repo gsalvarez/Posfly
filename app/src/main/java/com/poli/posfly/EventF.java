@@ -1,4 +1,4 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EventF extends Fragment {
@@ -46,14 +45,14 @@ public class EventF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_event, container, false);
 
-        lvEvents = (ListView) view.findViewById(R.id.lvEvents);
+        lvEvents = (ListView) view.findViewById(com.poli.posfly.R.id.lvEvents);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
         mAuth = FirebaseAuth.getInstance();
 
-        FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(R.id.btnNewEvent);
+        FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(com.poli.posfly.R.id.btnNewEvent);
 
         btnNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +60,7 @@ public class EventF extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fs");
-                transaction.replace(R.id.fragment_container, new CreateEvent(), "fce");
+                transaction.replace(com.poli.posfly.R.id.fragment_container, new CreateEvent(), "fce");
                 transaction.commit();
             }
         });
@@ -123,9 +122,9 @@ public class EventF extends Fragment {
                 if(event.getCreador().equals(mAuth.getCurrentUser().getEmail())){
                     final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Opciones de evento");
-                    final View viewInflated = LayoutInflater.from(getActivity()).inflate(R.layout.edit_dialog, (ViewGroup) getView(), false);
-                    Button btnEditOption = (Button) viewInflated.findViewById(R.id.editOption);
-                    Button btnDeleteOption = (Button) viewInflated.findViewById(R.id.deleteOption);
+                    final View viewInflated = LayoutInflater.from(getActivity()).inflate(com.poli.posfly.R.layout.edit_dialog, (ViewGroup) getView(), false);
+                    Button btnEditOption = (Button) viewInflated.findViewById(com.poli.posfly.R.id.editOption);
+                    Button btnDeleteOption = (Button) viewInflated.findViewById(com.poli.posfly.R.id.deleteOption);
 
                     alertDialog.setView(viewInflated);
                     alertDialog.show();
@@ -141,7 +140,7 @@ public class EventF extends Fragment {
                             args.putStringArrayList("data", data);
                             editEventF.setArguments(args);
                             transaction.addToBackStack("fe");
-                            transaction.replace(R.id.fragment_container, editEventF, "fee");
+                            transaction.replace(com.poli.posfly.R.id.fragment_container, editEventF, "fee");
                             transaction.commit();
                         }
                     });

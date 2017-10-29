@@ -1,11 +1,10 @@
-package com.poli.posconflictter;
+package com.poli.posfly;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +37,13 @@ public class MuseumF extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_museum, container, false);
+        View view = inflater.inflate(com.poli.posfly.R.layout.fragment_museum, container, false);
 
-        lvMuseum = (ListView) view.findViewById(R.id.lvMuseum);
+        lvMuseum = (ListView) view.findViewById(com.poli.posfly.R.id.lvMuseum);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Museum");
 
-        FloatingActionButton btnNewMuseum = (FloatingActionButton) view.findViewById(R.id.btnNewMuseum);
+        FloatingActionButton btnNewMuseum = (FloatingActionButton) view.findViewById(com.poli.posfly.R.id.btnNewMuseum);
 
         btnNewMuseum.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +51,7 @@ public class MuseumF extends Fragment{
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fs");
-                transaction.replace(R.id.fragment_container, new CreateMuseum(), "fce");
+                transaction.replace(com.poli.posfly.R.id.fragment_container, new CreateMuseum(), "fce");
                 transaction.commit();
             }
         });

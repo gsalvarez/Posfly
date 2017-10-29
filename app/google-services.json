@@ -39,6 +39,40 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344233788529:android:8c616ac7a3f439ad",
+        "android_client_info": {
+          "package_name": "com.poli.posfly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344233788529-85kidd8md6cot1sd11rgrapkfo2vib4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtG7-0QkckpGNPfkriIEMvW-qeEku_yYM"
+        },
+        {
+          "current_key": "AIzaSyCF_nUS534ABmt3jDDi0APx281fMlQ59Ow"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
