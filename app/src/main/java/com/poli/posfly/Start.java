@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.poli.posfly.evento.EventF;
+import com.poli.posfly.museo.MuseumF;
+import com.poli.posfly.perfil.ProfileF;
+
 public class Start extends Fragment {
 
     private TabLayout tabs;

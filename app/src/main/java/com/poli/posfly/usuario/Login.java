@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.usuario;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONException;
+import com.poli.posfly.Start;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

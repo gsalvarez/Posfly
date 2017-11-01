@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.perfil;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

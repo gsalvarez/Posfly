@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.usuario;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poli.posfly.Start;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

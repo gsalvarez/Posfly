@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.usuario;
 
 public class User {
     private String Usuario;

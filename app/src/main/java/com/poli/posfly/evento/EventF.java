@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.evento;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;

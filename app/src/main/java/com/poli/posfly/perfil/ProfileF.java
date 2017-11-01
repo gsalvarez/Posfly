@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.perfil;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.poli.posfly.usuario.Login;
 
 public class ProfileF extends Fragment {
 

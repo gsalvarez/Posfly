@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.museo;
 
 import android.content.Context;
 import android.view.LayoutInflater;

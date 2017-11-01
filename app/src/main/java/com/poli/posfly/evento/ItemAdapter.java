@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.evento;
 
 import java.util.List;
 

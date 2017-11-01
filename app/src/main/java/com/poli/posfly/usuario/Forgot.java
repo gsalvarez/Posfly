@@ -1,4 +1,4 @@
-package com.poli.posfly;
+package com.poli.posfly.usuario;
 
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
