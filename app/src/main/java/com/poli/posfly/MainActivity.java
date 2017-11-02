@@ -12,7 +12,6 @@ import com.poli.posfly.usuario.Login;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

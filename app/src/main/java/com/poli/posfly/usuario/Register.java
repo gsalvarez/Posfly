@@ -1,12 +1,10 @@
 package com.poli.posfly.usuario;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.poli.posfly.Start;
-
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,11 +47,6 @@ public class Register extends Fragment {
     private EditText txtRepass;
     private ProgressDialog progressDialog;
 
-    private DatabaseReference mDatabase;
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
     public Register () {
         // Required empty public constructor
     }
@@ -62,26 +55,7 @@ public class Register extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_register, container, false);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mDatabase = database.getReference("User");
-        mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
-
-        //Listener que escucha el estado de sesión del usuario
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d("TAG", "onAuthStateChanged:signed_in:" + user.getUid());
-                }
-                else {
-                    // User is signed out
-                    Log.d("TAG", "onAuthStateChanged:signed_out");
-                }
-            }
-        };
 
         txtName = (EditText) view.findViewById(com.poli.posfly.R.id.txtName);
         txtLastname = (EditText) view.findViewById(com.poli.posfly.R.id.txtLastname);
@@ -102,44 +76,13 @@ public class Register extends Fragment {
                 sPass = txtPass.getText().toString().trim();
                 sRepass = txtRepass.getText().toString().trim();
 
-                progressDialog.setMessage("Registrando, por favor espera...");
-                progressDialog.show();
                 if (checkFieldsPasswordsAndEmail(sName, sLastname, sUser, sEmail, sPass, sRepass)) {
-                    mDatabase.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                if (data.getKey().equals(sName)) {
-                                    info = "El usuario o el correo ya está en uso";
-                                }
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                    progressDialog.setMessage("Registrando, por favor espera...");
+                    progressDialog.show();
+                    postNewUser(sUser, sName, sLastname, sEmail, sPass);
+                    progressDialog.dismiss();
                 }
-                if (info.equals("Error en la conexión")) {
-                    mAuth.createUserWithEmailAndPassword(sEmail, sPass)
-                            .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
-                                        Toast.makeText(getActivity().getApplication().getApplicationContext(), "Cuenta creada con éxito", Toast.LENGTH_SHORT).show();
-                                        mDatabase.child(sUser).setValue(new User (sUser, sName, sLastname, sEmail, "user"));
-                                        FragmentManager fragmentManager = getFragmentManager();
-                                        FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                        transaction.replace(com.poli.posfly.R.id.fragment_container, new Start());
-                                        transaction.commit();
-                                    }else {
-                                        Toast.makeText(getActivity().getApplication().getApplicationContext(), "Error en la conexión", Toast.LENGTH_SHORT).show();
-                                    }
-                                    progressDialog.dismiss();
-                                }
-                            });
-                }
-                else {
+                else{
                     Toast.makeText(getActivity().getApplication().getApplicationContext(), info, Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
@@ -168,7 +111,7 @@ public class Register extends Fragment {
             return false;
         }
         else {
-            info = "Error en la conexión";
+            info = "ok";
             return true;
         }
     }
@@ -183,16 +126,62 @@ public class Register extends Fragment {
         return matcher.matches();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+    //Método que ejecuta el método POST para crear usuario en MySQL
+    public void postNewUser (final String id_usuario, final String nombre, final String apellido, final String correo, final String pass) {
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("http://192.168.0.7/posfly/new_user.php");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setReadTimeout(10000);
+                    conn.setConnectTimeout(15000);
+                    conn.setRequestMethod("POST");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    List<Pair<String, String>> params = new ArrayList<>();
+                    params.add(new Pair<>("idUsuario", id_usuario));
+                    params.add(new Pair<>("nombre", nombre));
+                    params.add(new Pair<>("apellido", apellido));
+                    params.add(new Pair<>("correo", correo));
+                    params.add(new Pair<>("pass", pass));
+
+                    OutputStream os = conn.getOutputStream();
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                    writer.write(getQuery(params));
+                    writer.flush();
+                    writer.close();
+                    os.close();
+
+                    conn.connect();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+
+    private String getQuery(List<Pair<String, String>> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+        boolean first = true;
+        for (Pair<String, String> pair : params) {
+            if (first) first = false;
+            else result.append("&");
+            result.append(URLEncoder.encode(pair.first, "UTF-8"));
+            result.append("=");
+            result.append(URLEncoder.encode(pair.second, "UTF-8"));
         }
+
+        Log.d("TAG", result.toString());
+        return result.toString();
     }
 }
