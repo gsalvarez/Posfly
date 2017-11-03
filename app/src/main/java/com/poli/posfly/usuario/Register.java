@@ -12,8 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -133,34 +145,22 @@ public class Register extends Fragment {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://192.168.0.7/posfly/new_user.php");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setReadTimeout(10000);
-                    conn.setConnectTimeout(15000);
-                    conn.setRequestMethod("POST");
-                    conn.setDoInput(true);
-                    conn.setDoOutput(true);
-
-                    List<Pair<String, String>> params = new ArrayList<>();
-                    params.add(new Pair<>("idUsuario", id_usuario));
-                    params.add(new Pair<>("nombre", nombre));
-                    params.add(new Pair<>("apellido", apellido));
-                    params.add(new Pair<>("correo", correo));
-                    params.add(new Pair<>("pass", pass));
-
-                    OutputStream os = conn.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                    writer.write(getQuery(params));
-                    writer.flush();
-                    writer.close();
-                    os.close();
-
-                    conn.connect();
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost("http://192.168.0.7/posfly/new_user.php");
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair("idUsuario", id_usuario));
+                    params.add(new BasicNameValuePair("nombre", nombre));
+                    params.add(new BasicNameValuePair("apellido", apellido));
+                    params.add(new BasicNameValuePair("correo", correo));
+                    params.add(new BasicNameValuePair("pass", pass));
+                    httppost.setEntity(new UrlEncodedFormEntity(params));
+                    HttpResponse resp = httpclient.execute(httppost);
+                    HttpEntity ent = resp.getEntity();
+                    String text = EntityUtils.toString(ent);
+                    Log.d("TAG", text);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
-                } catch (ProtocolException e) {
-                    e.printStackTrace();
-                } catch (MalformedURLException e) {
+                } catch (ClientProtocolException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -168,20 +168,5 @@ public class Register extends Fragment {
             }
         });
         thread.start();
-    }
-
-    private String getQuery(List<Pair<String, String>> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        for (Pair<String, String> pair : params) {
-            if (first) first = false;
-            else result.append("&");
-            result.append(URLEncoder.encode(pair.first, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(pair.second, "UTF-8"));
-        }
-
-        Log.d("TAG", result.toString());
-        return result.toString();
     }
 }
