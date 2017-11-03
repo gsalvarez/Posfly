@@ -1,10 +1,15 @@
 package com.poli.posfly.usuario;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
+import android.os.Handler;
+import android.os.Looper;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +28,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -43,6 +42,7 @@ public class Register extends Fragment {
 
     //Patrón de emails
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private String URL;
     private String info = "";
     private String sName;
     private String sLastname;
@@ -67,6 +67,7 @@ public class Register extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_register, container, false);
 
+        URL = getArguments().getString("URL");
         progressDialog = new ProgressDialog(getActivity());
 
         txtName = (EditText) view.findViewById(com.poli.posfly.R.id.txtName);
@@ -81,21 +82,28 @@ public class Register extends Fragment {
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sName = txtName.getText().toString().trim();
-                sLastname = txtLastname.getText().toString().trim();
-                sUser = txtUser.getText().toString().toLowerCase().trim();
-                sEmail = txtEmail.getText().toString().trim();
-                sPass = txtPass.getText().toString().trim();
-                sRepass = txtRepass.getText().toString().trim();
+                progressDialog.setMessage("Registrando, por favor espera...");
+                progressDialog.show();
+                if (checkNetwork()){
+                    sName = txtName.getText().toString().trim();
+                    sLastname = txtLastname.getText().toString().trim();
+                    sUser = txtUser.getText().toString().toLowerCase().trim();
+                    sEmail = txtEmail.getText().toString().trim();
+                    sPass = txtPass.getText().toString().trim();
+                    sRepass = txtRepass.getText().toString().trim();
 
-                if (checkFieldsPasswordsAndEmail(sName, sLastname, sUser, sEmail, sPass, sRepass)) {
-                    progressDialog.setMessage("Registrando, por favor espera...");
-                    progressDialog.show();
-                    postNewUser(sUser, sName, sLastname, sEmail, sPass);
-                    progressDialog.dismiss();
+                    if (checkFieldsPasswordsAndEmail(sName, sLastname, sUser, sEmail, sPass, sRepass)) {
+                        sPass = encodePass(sPass);
+                        postNewUser(sUser, sName, sLastname, sEmail, sPass);
+                        progressDialog.dismiss();
+                    }
+                    else{
+                        Toast.makeText(getActivity().getApplication().getApplicationContext(), info, Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
                 }
                 else{
-                    Toast.makeText(getActivity().getApplication().getApplicationContext(), info, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplication().getApplicationContext(), "Revisa tu conexión a Internet", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }
@@ -140,14 +148,13 @@ public class Register extends Fragment {
 
     //Método que ejecuta el método POST para crear usuario en MySQL
     public void postNewUser (final String id_usuario, final String nombre, final String apellido, final String correo, final String pass) {
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost("http://192.168.0.7/posfly/new_user.php");
-                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    HttpPost httppost = new HttpPost(URL+"new_user.php");
+                    List<NameValuePair> params = new ArrayList<>();
                     params.add(new BasicNameValuePair("idUsuario", id_usuario));
                     params.add(new BasicNameValuePair("nombre", nombre));
                     params.add(new BasicNameValuePair("apellido", apellido));
@@ -156,8 +163,28 @@ public class Register extends Fragment {
                     httppost.setEntity(new UrlEncodedFormEntity(params));
                     HttpResponse resp = httpclient.execute(httppost);
                     HttpEntity ent = resp.getEntity();
-                    String text = EntityUtils.toString(ent);
-                    Log.d("TAG", text);
+                    final String text = EntityUtils.toString(ent);
+
+                    Handler h = new Handler(Looper.getMainLooper());
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (text) {
+                                case "Cuenta creada con éxito":
+                                    Toast.makeText(getActivity().getApplication().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    fragmentManager.popBackStackImmediate();
+                                    break;
+                                case "Este usuario ya está en uso":
+                                    Toast.makeText(getActivity().getApplication().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "Este correo ya está en uso":
+                                    Toast.makeText(getActivity().getApplication().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
+                    });
+
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 } catch (ClientProtocolException e) {
@@ -168,5 +195,28 @@ public class Register extends Fragment {
             }
         });
         thread.start();
+    }
+
+    private String encodePass(String pass) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(pass.getBytes());
+            BigInteger number = new BigInteger(1, messageDigest);
+            String hashtext = number.toString(16);
+            // Now we need to zero pad it if you actually want the full 32 chars.
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean checkNetwork() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplication().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

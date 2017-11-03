@@ -29,6 +29,7 @@ public class Login extends Fragment {
     //Patrón de emails
     private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+    private String URL;
     private EditText txtEmail;
     private EditText txtPass;
 
@@ -44,6 +45,7 @@ public class Login extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_login, container, false);
 
+        URL = getArguments().getString("URL");
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(getActivity());
 
@@ -60,7 +62,11 @@ public class Login extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fi");
-                transaction.replace(com.poli.posfly.R.id.fragment_container, new Register(), "fr");
+                Bundle args = new Bundle();
+                args.putString("URL", URL);
+                Fragment fg = new Register();
+                fg.setArguments(args);
+                transaction.replace(com.poli.posfly.R.id.fragment_container, fg, "fr");
                 transaction.commit();
             }
         });

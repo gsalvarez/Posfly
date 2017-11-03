@@ -12,6 +12,10 @@ import com.poli.posfly.usuario.Login;
 
 public class MainActivity extends AppCompatActivity {
 
+    public String URL = "http://192.168.0.7/posfly/"; // Gabriel
+    //public String URL = "http://xxx.xxx.x.x/posfly/"; // Jeimy
+    //public String URL = "http://xxx.xxx.x.x/posfly/"; // Camilo
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             fragment = new Login();
-
         }
+
+        Bundle args = new Bundle();
+        args.putString("URL", URL);
+        fragment.setArguments(args);
         transaction.add(com.poli.posfly.R.id.fragment_container, fragment, "fi");
         transaction.commit();
     }
