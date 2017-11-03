@@ -3,11 +3,11 @@ package com.poli.posfly;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.poli.posfly.usuario.Login;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Fragment fragment;
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+
+        String user = pref.getString("id_usuario", null);
 
         if (user != null) {
             fragment = new Start();

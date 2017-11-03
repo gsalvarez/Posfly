@@ -7,8 +7,6 @@
     android:orientation="vertical"
     tools:context=".usuario.Login">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="153dp"
@@ -50,14 +48,14 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/txtEmailL"
+            android:id="@+id/txtUserL"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
-            android:hint="@string/email"
+            android:hint="@string/user"
             android:inputType="textEmailAddress"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/darker_gray"
