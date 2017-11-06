@@ -41,16 +41,17 @@ class Usuario
      * @param $idMeta Identificador de la meta
      * @return mixed
      */
-    public static function getById($idUsuario)
+    public static function getById($idUsuario, $pass)
     {
-        // Consulta de la meta
-        $consulta = "SELECT id_usuario, nombre, apellido, correo, rol FROM usuario WHERE id_usuario = ?";
+        // Consulta del usuario
+        //$consulta = "SELECT id_usuario, nombre, apellido, correo, rol FROM usuario WHERE id_usuario = ?";
+        $consulta = "SELECT * FROM usuario WHERE id_usuario = ? and pass = ?";
 
         try {
             // Preparar sentencia
             $comando = Database::getInstance()->getDb()->prepare($consulta);
             // Ejecutar sentencia preparada
-            $comando->execute(array($idUsuario));
+            $comando->execute(array($idUsuario, $pass));
             // Capturar primera fila del resultado
             $row = $comando->fetch(PDO::FETCH_ASSOC);
             return $row;

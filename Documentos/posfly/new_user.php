@@ -2,32 +2,24 @@
 
 require 'Usuario.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    
-    $idUsuario = $_GET['idUsuario'];
-    $nombre = $_GET['nombre'];
-    $apellido = $_GET['apellido'];
-    $correo = $_GET['correo'];
-    $pass = $_GET['pass'];
+try{
+    $idUsuario = utf8_encode($_POST['idUsuario']);
+    $nombre = utf8_encode($_POST['nombre']);
+    $apellido = utf8_encode($_POST['apellido']);
+    $correo = utf8_encode($_POST['correo']);
+    $pass = utf8_encode($_POST['pass']);
     $rol = "user";
 
     Usuario::insert($idUsuario, $nombre, $apellido, $correo, $pass, $rol);
+    
+    echo "Cuenta creada con éxito";
 }
-
-
-/*
-    require 'datos/Database.php';
-
-    $idUsuario = $_GET['idUsuario'];
-    $nombre = $_GET['nombre'];
-    $apellido = $_GET['apellido'];
-    $correo = $_GET['correo'];
-    $pass = $_GET['pass'];
-    $rol = "user";
-        
-    $comando = "INSERT INTO usuario (id_usuario, nombre, apellido, correo, pass, rol) VALUES( ?,?,?,?,?,?)";
-    $sentencia = Database::getInstance()->getDb()->prepare($comando);
-    return $sentencia->execute(array($idUsuario, $nombre, $apellido, $correo, $pass, $rol));
-    echo $sentencia;
-*/
+catch(Exception $e){
+    if(strpos( $e, "PRIMARY" ) !== false) {
+        echo "Este usuario ya está en uso";
+    }
+    else if(strpos( $e, "correo" ) !== false) {
+        echo "Este correo ya está en uso";
+    }
+}
 ?>
