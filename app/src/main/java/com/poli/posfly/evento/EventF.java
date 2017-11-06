@@ -28,6 +28,8 @@ import java.util.List;
 
 public class EventF extends Fragment {
 
+    private String URL;
+
     ListView lvEvents;
 
     ItemAdapter adapter;
@@ -47,6 +49,8 @@ public class EventF extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_event, container, false);
 
+        URL = getArguments().getString("URL");
+
         lvEvents = (ListView) view.findViewById(com.poli.posfly.R.id.lvEvents);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("Event");
@@ -60,7 +64,11 @@ public class EventF extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fs");
-                transaction.replace(com.poli.posfly.R.id.fragment_container, new CreateEvent(), "fce");
+                Bundle args = new Bundle();
+                args.putString("URL", URL);
+                Fragment newEvent = new CreateEvent();
+                newEvent.setArguments(args);
+                transaction.replace(com.poli.posfly.R.id.fragment_container, newEvent, "fce");
                 transaction.commit();
             }
         });

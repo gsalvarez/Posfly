@@ -15,6 +15,7 @@ import com.poli.posfly.perfil.ProfileF;
 
 public class Start extends Fragment {
 
+    Bundle args = new Bundle();
     private TabLayout tabs;
 
     public Start() {
@@ -26,11 +27,16 @@ public class Start extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_start, container, false);
 
+        String URL = getArguments().getString("URL");
         tabs = (TabLayout) view.findViewById(com.poli.posfly.R.id.tabs);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(com.poli.posfly.R.id.frag_container, new EventF(), "fe");
+
+        args.putString("URL", URL);
+        Fragment eventF = new EventF();
+        eventF.setArguments(args);
+        transaction.add(com.poli.posfly.R.id.frag_container, eventF, "fe");
         transaction.commit();
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -40,16 +46,19 @@ public class Start extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (tabs.getSelectedTabPosition()) {
                     case 0:
-                        //do what you want when tab 0 is selected
-                        transaction.replace(com.poli.posfly.R.id.frag_container, new EventF(), "fe");
+                        Fragment eventFTab = new EventF();
+                        eventFTab.setArguments(args);
+                        transaction.replace(com.poli.posfly.R.id.frag_container, eventFTab, "fe");
                         break;
                     case 1:
-                        //do what you want when tab 1 is selected
-                        transaction.replace(com.poli.posfly.R.id.frag_container, new MuseumF(), "fm");
+                        Fragment museumFTab = new MuseumF();
+                        museumFTab.setArguments(args);
+                        transaction.replace(com.poli.posfly.R.id.frag_container, museumFTab, "fm");
                         break;
                     case 2:
-                        //do what you want when tab 2 is selected
-                        transaction.replace(com.poli.posfly.R.id.frag_container, new ProfileF(), "fp");
+                        Fragment profileFTab = new ProfileF();
+                        profileFTab.setArguments(args);
+                        transaction.replace(com.poli.posfly.R.id.frag_container, profileFTab, "fp");
                         break;
                     default:
                         break;

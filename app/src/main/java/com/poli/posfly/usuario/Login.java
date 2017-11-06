@@ -152,7 +152,11 @@ public class Login extends Fragment {
                                         editor.commit();
                                         FragmentManager fragmentManager = getFragmentManager();
                                         FragmentTransaction transaction = fragmentManager.beginTransaction();
-                                        transaction.replace(R.id.fragment_container, new Start(), "fs");
+                                        Fragment startF = new Start();
+                                        Bundle args = new Bundle();
+                                        args.putString("URL", URL);
+                                        startF.setArguments(args);
+                                        transaction.replace(R.id.fragment_container, startF, "fs");
                                         transaction.commit();
                                         break;
                                     case "Credenciales incorrectas":

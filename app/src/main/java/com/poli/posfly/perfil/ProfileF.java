@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.poli.posfly.usuario.Login;
 
 public class ProfileF extends Fragment {
-    private String URL = "prueba";
+    private String URL;
 
     public ProfileF() {
         // Required empty public constructor
@@ -24,7 +24,7 @@ public class ProfileF extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_profile, container, false);
 
-        //URL = getArguments().getString("URL");
+        URL = getArguments().getString("URL");
 
         Button btnLogout = (Button) view.findViewById(com.poli.posfly.R.id.btnLogout);
 
