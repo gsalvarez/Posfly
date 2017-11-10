@@ -109,44 +109,41 @@ class Evento
      * @return PDOStatement
      */
     public static function insert(
-        $id_evento,
         $nombre,
         $lugar,
         $fecha,
         $hora,
         $descripcion,
         $precio,
-        $calificacion,
-        $id_usuario
+        $idUsuario,
+        $calificacion
     )
     {
         // Sentencia INSERT
         $comando = "INSERT INTO evento ( " .
-            "id_evento," .
             " nombre," .
             " lugar," .
             " fecha," .
             " hora," .
             " descripcion," .
             " precio," .
-            " calificacion," .
-            " id_usuario)" .
-            " VALUES( ?,?,?,?,?,?,?,?,?)";
+            " id_usuario," .
+            " calificacion)" .
+            " VALUES( ?,?,?,?,?,?,?,?)";
 
         // Preparar la sentencia
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
 
         return $sentencia->execute(
             array(
-                $id_evento,
                 $nombre,
                 $lugar,
                 $fecha,
                 $hora,
                 $descripcion,
                 $precio,
-                $calificacion,
-                $id_usuario
+                $idUsuario,
+                $calificacion
             )
         );
 
