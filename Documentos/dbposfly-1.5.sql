@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2017 a las 20:24:15
+-- Tiempo de generación: 10-11-2017 a las 05:57:17
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.10
 
@@ -49,8 +49,8 @@ CREATE TABLE `museo` (
   `id_museo` int(10) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `id_usuario` varchar(15) NOT NULL,
-  `descripcion` varchar(120) NOT NULL,
-  `fecha` date NOT NULL
+  `descripcion` varchar(140) NOT NULL,
+  `fecha` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -99,6 +99,16 @@ ALTER TABLE `museo`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
   ADD UNIQUE KEY `correo` (`correo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `museo`
+--
+ALTER TABLE `museo`
+  MODIFY `id_museo` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
