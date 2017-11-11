@@ -130,7 +130,7 @@ public class Login extends Fragment {
                 public void run() {
                     try {
                         HttpClient httpclient = new DefaultHttpClient();
-                        HttpPost httppost = new HttpPost(URL+"login.php");
+                        HttpPost httppost = new HttpPost(URL+"login");
                         List<NameValuePair> params = new ArrayList<>();
                         params.add(new BasicNameValuePair("idUsuario", user));
                         params.add(new BasicNameValuePair("pass", pass));

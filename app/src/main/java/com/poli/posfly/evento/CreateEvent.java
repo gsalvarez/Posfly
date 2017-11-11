@@ -159,7 +159,7 @@ public class CreateEvent extends Fragment{
             public void run() {
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(URL+"new_event.php");
+                    HttpPost httppost = new HttpPost(URL+"new_event");
                     List<NameValuePair> params = new ArrayList<>();
                     params.add(new BasicNameValuePair("nombre", nombre));
                     params.add(new BasicNameValuePair("lugar", lugar));

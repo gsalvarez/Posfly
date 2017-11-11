@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -153,7 +154,7 @@ public class Register extends Fragment {
             public void run() {
                 try {
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost(URL+"new_user.php");
+                    HttpPost httppost = new HttpPost(URL+"new_user");
                     List<NameValuePair> params = new ArrayList<>();
                     params.add(new BasicNameValuePair("idUsuario", id_usuario));
                     params.add(new BasicNameValuePair("nombre", nombre));

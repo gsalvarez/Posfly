@@ -12,9 +12,7 @@ import com.poli.posfly.usuario.Login;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String URL = "http://192.168.0.7/posfly/"; // Gabriel
-    //public String URL = "http://xxx.xxx.x.x/posfly/"; // Jeimy
-    //public String URL = "http://xxx.xxx.x.x/posfly/"; // Camilo
+    public String URL = "http://192.168.0.7/"; // IP del reverse proxy
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
