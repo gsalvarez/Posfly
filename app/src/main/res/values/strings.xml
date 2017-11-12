@@ -35,4 +35,7 @@
         <string name="description">Descripción</string>
     <!--PROFILE-->
         <string name="edit_profile">Editar Perfil</string>
+        <string name="mod_pass">Cambiar contraseña</string>
+        <string name="old_pass">Contraseña anterior</string>
+        <string name="new_pass">Nueva contraseña</string>
 </resources>

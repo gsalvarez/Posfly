@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/mod_pass"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        android:textStyle="bold|italic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/txtOldPass"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/old_pass"
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@android:color/darker_gray"
+            android:textColorLink="@color/colorAccent" />
+
+        <EditText
+            android:id="@+id/txtNewPass"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/new_pass"
+            android:inputType="textPassword"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/txtNewRepass"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/repass"
+            android:inputType="textPassword"
+            android:textColorHint="@android:color/darker_gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnUpPass"
+            android:layout_width="220dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/buttons_shape"
+            android:gravity="center"
+            android:text="@string/mod_pass"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</LinearLayout>
