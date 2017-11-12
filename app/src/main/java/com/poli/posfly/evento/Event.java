@@ -4,111 +4,92 @@ import java.util.ArrayList;
 
 public class Event {
 
-    private String Key;
-    private String Nombre;
-    private String Fecha;
-    private String Hora;
-    private String Lugar;
-    private String Descripcion;
-    private String Precio;
-    private double Calificacion;
-    private ArrayList<String> Comentarios;
-    private String Creador;
+    private String nombre;
+    private String fecha;
+    private String hora;
+    private String lugar;
+    private String descripcion;
+    private String precio;
+    private String calificacion;
+    private String id_usuario;
 
 
     public Event () {
 
     }
-    public Event (String key, String name, String date, String hour, String place, String description, String price, double rating, ArrayList<String> comments, String creador) {
-        this.Key = key;
-        this.Nombre = name;
-        this.Fecha = date;
-        this.Hora = hour;
-        this.Lugar = place;
-        this.Descripcion = description;
-        this.Precio = price;
-        this.Comentarios = comments;
-        this.Calificacion = rating;
-        this.Creador = creador;
-    }
 
-    public String getKey() {
-        return Key;
-    }
-
-    public void setKey(String key) {
-        Key = key;
+    public Event (String name, String date, String hour, String place, String description, String price, String rating, String creador) {
+        this.nombre = name;
+        this.fecha = date;
+        this.hora = hour;
+        this.lugar = place;
+        this.descripcion = description;
+        this.precio = price;
+        this.calificacion = rating;
+        this.id_usuario = creador;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getFecha() {
-        return Fecha;
+        return fecha;
     }
 
     public void setFecha(String fecha) {
-        Fecha = fecha;
+        this.fecha = fecha;
     }
 
     public String getHora() {
-        return Hora;
+        return hora;
     }
 
     public void setHora(String hora) {
-        Hora = hora;
+        this.hora = hora;
     }
 
     public String getLugar() {
-        return Lugar;
+        return lugar;
     }
 
     public void setLugar(String lugar) {
-        Lugar = lugar;
+        this.lugar = lugar;
     }
 
     public String getDescripcion() {
-        return Descripcion;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+        this.descripcion = descripcion;
     }
 
     public String getPrecio() {
-        return Precio;
+        return precio;
     }
 
     public void setPrecio(String precio) {
-        Precio = precio;
+        this.precio = precio;
     }
 
-    public double getCalificacion() {
-        return Calificacion;
+    public String getCalificacion() {
+        return calificacion;
     }
 
-    public void setCalificacion(double calificacion) {
-        Calificacion = calificacion;
+    public void setCalificacion(String calificacion) {
+        this.calificacion = calificacion;
     }
 
-    public ArrayList<String> getComentarios() {
-        return Comentarios;
+    public String getId_usuario() {
+        return id_usuario;
     }
 
-    public void setComentarios(ArrayList<String> comentarios) {
-        Comentarios = comentarios;
-    }
-
-    public void setCreador(String creador) {
-        Creador = creador;
-    }
-
-    public String getCreador() {
-        return Creador;
+    public void setId_usuario(String id_usuario) {
+        this.id_usuario = id_usuario;
     }
 }

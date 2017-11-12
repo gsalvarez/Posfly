@@ -178,7 +178,6 @@ public class CreateEvent extends Fragment{
                     h.post(new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("TAG", "entra al ultimo");
                             switch (text) {
                                 case "Evento creado con éxito":
                                     Toast.makeText(getActivity().getApplication().getApplicationContext(), text, Toast.LENGTH_SHORT).show();

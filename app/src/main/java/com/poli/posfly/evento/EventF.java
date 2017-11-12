@@ -3,8 +3,14 @@ package com.poli.posfly.evento;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,19 +22,29 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventF extends Fragment {
 
     private String URL;
+    private String userActual;
 
     ListView lvEvents;
 
@@ -37,8 +53,6 @@ public class EventF extends Fragment {
     EventF eventf = this;
 
     ArrayList<String> data = new ArrayList<>();
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
 
     public EventF() {
         // Required empty public constructor
@@ -50,13 +64,19 @@ public class EventF extends Fragment {
         View view = inflater.inflate(com.poli.posfly.R.layout.fragment_event, container, false);
 
         URL = getArguments().getString("URL");
+        SharedPreferences pref = getActivity().getApplication().getApplicationContext().getSharedPreferences("MyPref", 0);
+        userActual =  pref.getString("id_usuario", null);
 
         lvEvents = (ListView) view.findViewById(com.poli.posfly.R.id.lvEvents);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mDatabase = database.getReference("Event");
-        mAuth = FirebaseAuth.getInstance();
-
         FloatingActionButton btnNewEvent = (FloatingActionButton) view.findViewById(com.poli.posfly.R.id.btnNewEvent);
+
+        if(checkNetwork()) {
+            getEventos();
+            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Eventos actualizados", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Revisa tu conexión a Internet", Toast.LENGTH_SHORT).show();
+        }
 
         btnNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,39 +96,6 @@ public class EventF extends Fragment {
         adapter = new ItemAdapter(eventf, itemEvents);
         lvEvents.setAdapter(adapter);
 
-        mDatabase.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                itemEvents.add(new Event(dataSnapshot.child("key").getValue().toString(), dataSnapshot.child("nombre").getValue().toString(), dataSnapshot.child("fecha").getValue().toString(), dataSnapshot.child("hora").getValue().toString(),
-                            dataSnapshot.child("lugar").getValue().toString(), dataSnapshot.child("descripcion").getValue().toString(), dataSnapshot.child("precio").getValue().toString(),
-                            Double.parseDouble(dataSnapshot.child("calificacion").getValue().toString()), null, dataSnapshot.child("creador").getValue().toString()));
-                //Collections.reverse(itemEvents);
-                adapter.notifyDataSetChanged();
-                setListViewHeight(lvEvents);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -120,14 +107,13 @@ public class EventF extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Event event = (Event) parent.getItemAtPosition(position);
-                data.add(event.getKey());
                 data.add(event.getNombre());
                 data.add(event.getFecha());
                 data.add(event.getHora());
                 data.add(event.getLugar());
                 data.add(event.getDescripcion());
                 data.add(event.getPrecio());
-                if(event.getCreador().equals(mAuth.getCurrentUser().getEmail())){
+                if(event.getId_usuario().equals(userActual)){
                     final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                     alertDialog.setTitle("Opciones de evento");
                     final View viewInflated = LayoutInflater.from(getActivity()).inflate(com.poli.posfly.R.layout.edit_dialog, (ViewGroup) getView(), false);
@@ -146,6 +132,7 @@ public class EventF extends Fragment {
                             EditEvent editEventF = new EditEvent();
                             Bundle args = new Bundle();
                             args.putStringArrayList("data", data);
+                            args.putString("URL", URL);
                             editEventF.setArguments(args);
                             transaction.addToBackStack("fe");
                             transaction.replace(com.poli.posfly.R.id.fragment_container, editEventF, "fee");
@@ -155,9 +142,8 @@ public class EventF extends Fragment {
                     btnDeleteOption.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mDatabase.child(data.get(0)).setValue(null);
+                            deleteEvent(data.get(0));
                             adapter.notifyDataSetChanged();
-                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento eliminado", Toast.LENGTH_SHORT).show();
                             alertDialog.dismiss();
                         }
                     });
@@ -170,6 +156,108 @@ public class EventF extends Fragment {
         });
 
         return view;
+    }
+
+    public void getEventos() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(URL+"get_events");
+                    List<NameValuePair> params = new ArrayList<>();
+                    httppost.setEntity(new UrlEncodedFormEntity(params));
+                    HttpResponse resp = httpclient.execute(httppost);
+                    HttpEntity ent = resp.getEntity();
+                    final String text = EntityUtils.toString(ent);
+
+                    try {
+                        JSONArray jsonEventos = new JSONArray(text);
+                        for (int i = 0; i < jsonEventos.length(); i++) {
+                            String nombre = String.valueOf(jsonEventos.getJSONObject(i).get("nombre"));
+                            String fecha = String.valueOf(jsonEventos.getJSONObject(i).get("fecha"));
+                            String hora = String.valueOf(jsonEventos.getJSONObject(i).get("hora"));
+                            String lugar = String.valueOf(jsonEventos.getJSONObject(i).get("lugar"));
+                            String descripcion = String.valueOf(jsonEventos.getJSONObject(i).get("descripcion"));
+                            String precio = String.valueOf(jsonEventos.getJSONObject(i).get("precio"));
+                            String calificacion = String.valueOf(jsonEventos.getJSONObject(i).get("calificacion"));
+                            String id_usuario = String.valueOf(jsonEventos.getJSONObject(i).get("id_usuario"));
+
+                            itemEvents.add(new Event (nombre, fecha, hora, lugar, descripcion, precio, calificacion, id_usuario));
+                        }
+                        Handler h = new Handler(Looper.getMainLooper());
+                        h.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                                setListViewHeight(lvEvents);
+                            }
+                        });
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public void deleteEvent(final String nombreEvento){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    HttpClient httpclient = new DefaultHttpClient();
+                    HttpPost httppost = new HttpPost(URL+"delete_event");
+                    List<NameValuePair> params = new ArrayList<>();
+                    params.add(new BasicNameValuePair("nombre", nombreEvento));
+                    httppost.setEntity(new UrlEncodedFormEntity(params));
+                    HttpResponse resp = httpclient.execute(httppost);
+                    HttpEntity ent = resp.getEntity();
+                    final String text = EntityUtils.toString(ent);
+
+                    Handler h = new Handler(Looper.getMainLooper());
+                    h.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                            setListViewHeight(lvEvents);
+                            FragmentManager fragmentManager = getFragmentManager();
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            EventF eventF = new EventF();
+                            Bundle args = new Bundle();
+                            args.putString("URL", URL);
+                            eventF.setArguments(args);
+                            transaction.replace(com.poli.posfly.R.id.frag_container, eventF, "fe");
+                            transaction.commit();
+                            Toast.makeText(getActivity().getApplication().getApplicationContext(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public boolean checkNetwork() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getApplication().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     public static void setListViewHeight(ListView listView) {
