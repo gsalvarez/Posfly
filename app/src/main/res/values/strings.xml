@@ -17,10 +17,10 @@
         <string name="user">Usuario</string>
         <string name="repass">Confirmar contraseña</string>
     <!--FORGOT-->
-        <string name="recover_pass">Recuperar contraseña</string>
-        <string name="forgot_info">Escribe la dirección de correo electrónico con la que te registraste. Te enviaremos un correo con los pasos para
-            establecer una nueva contraseña.</string>
+        <string name="recover_pass">Restablecer contraseña</string>
+        <string name="forgot_info">Escribe la dirección de correo electrónico con la que te registraste. Ingresa el código de 6 dígitos que recibiste para establecer una nueva contraseña.</string>
         <string name="send_email">Enviar correo</string>
+        <string name="codigo">Código</string>
     <!--START-->
         <string name="events">Eventos</string>
         <string name="museum">Museo</string>

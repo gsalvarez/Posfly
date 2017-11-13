@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,12 +53,11 @@ public class Login extends Fragment {
     private ProgressDialog progressDialog;
 
     public Login() {
-        // Required empty public constructor
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         URL = getArguments().getString("URL");
@@ -93,7 +91,11 @@ public class Login extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.addToBackStack("fi");
-                transaction.replace(R.id.fragment_container, new Forgot(), "ff");
+                Bundle args = new Bundle();
+                args.putString("URL", URL);
+                Fragment fg = new Forgot();
+                fg.setArguments(args);
+                transaction.replace(R.id.fragment_container, fg, "ff");
                 transaction.commit();
             }
         });
