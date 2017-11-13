@@ -14,7 +14,31 @@
         android:layout_height="32dp"
         android:layout_gravity="right"
         android:background="@android:color/transparent"
-        android:text="editar"
+        android:text="@string/edit"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnCancelEdit"
+        android:layout_width="74dp"
+        android:layout_height="32dp"
+        android:layout_gravity="right"
+        android:background="@drawable/buttons_shape_red"
+        android:text="@string/cancelar"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnAcceptEdit"
+        android:layout_width="74dp"
+        android:layout_height="32dp"
+        android:layout_gravity="right"
+        android:background="@drawable/buttons_shape_green"
+        android:text="@string/aceptar"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="10sp"
@@ -34,6 +58,46 @@
             android:layout_gravity="center"
             app:srcCompat="@color/colorAccent" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:editable="false"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/last"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:editable="false"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!--
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -49,6 +113,19 @@
             android:id="@+id/mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_light_default"
+            android:textSize="16sp" />
+-->
+
+        <EditText
+            android:id="@+id/mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:editable="false"
+            android:enabled="false"
+            android:inputType="textEmailAddress"
             android:textAlignment="center"
             android:textColor="@color/common_google_signin_btn_text_light_default"
             android:textSize="16sp" />

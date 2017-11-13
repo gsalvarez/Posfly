@@ -48,4 +48,6 @@
         <string name="mod_pass">Cambiar contraseña</string>
         <string name="old_pass">Contraseña anterior</string>
         <string name="new_pass">Nueva contraseña</string>
+        <string name="aceptar">Aceptar</string>
+        <string name="cancelar">Cancelar</string>
 </resources>
