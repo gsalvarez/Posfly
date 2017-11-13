@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.poli.posfly.R;
+
 import java.util.List;
 
 public class ItemAdapterMuseum extends BaseAdapter {
@@ -56,9 +58,16 @@ public class ItemAdapterMuseum extends BaseAdapter {
         txtNameM.setText(item.getNombre());
         txtDate.setText(String.valueOf(item.getFecha()));
         txtDescripcionMuseum.setText(item.getDescripcion());
-        txtAutor.setText(item.getAutor());
+        switch (item.getAnonimo()) {
+            case "true":
+                txtAutor.setText(R.string.anonimo);
+                break;
+            case "false":
+                txtAutor.setText(item.getUsuario());
+                break;
+        }
 
-        rowView.setTag(item.getNombre());
+        rowView.setTag(item.getIdMuseo());
         return rowView;
     }
 }

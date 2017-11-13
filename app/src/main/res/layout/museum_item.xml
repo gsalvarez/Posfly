@@ -2,53 +2,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="4"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtNameM"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:padding="5dp"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtDateM"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:padding="5dp"
             android:textColor="@android:color/black"
             android:textSize="10sp" />
 
         <TextView
             android:id="@+id/txtDescripcionMostar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:padding="5dp"
             android:textColor="@android:color/black"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/txtAutorMuseo"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:autoText="false"
             android:elegantTextHeight="true"
+            android:padding="5dp"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
             android:textSize="10sp"
@@ -57,27 +58,35 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:orientation="horizontal">
+    <!--
+        <Button
+            android:id="@+id/btnLike"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_shape_green"
+            android:text="@string/me_gusta"
+            android:textColor="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:elevation="0dp"
-            android:src="@drawable/ic_thumb_up_black_48dp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:rotation="180"
-            android:src="@drawable/ic_thumb_up_black_48dp" />
-
+        <Button
+            android:id="@+id/btnDislike"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttons_shape_red"
+            android:text="@string/nome_gusta"
+            android:textColor="@android:color/white" />
+-->
     </LinearLayout>
 
 </LinearLayout>

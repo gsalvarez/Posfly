@@ -9,6 +9,8 @@
         <string name="logout">Cerrar sesión</string>
         <string name="create">Crear cuenta</string>
         <string name="forgot_pass">Olvidé mi contraseña</string>
+        <string name="edit">Editar</string>
+        <string name="delete">Eliminar</string>
     <!--REGISTER-->
         <string name="name">Nombre</string>
         <string name="lastname">Apellido</string>
@@ -33,6 +35,14 @@
         <string name="hour">Hora</string>
         <string name="price">Precio</string>
         <string name="description">Descripción</string>
+    <!--MUSEUM-->
+        <string name="create_museum">Crear anécdota</string>
+        <string name="edit_museum">Editar anécdota</string>
+        <string name="delete_museum">Eliminar anécdota</string>
+        <string name="museum_name">Nombre de la anécdota</string>
+        <string name="anonimo">Anónimo</string>
+        <string name="me_gusta">Me gusta</string>
+        <string name="nome_gusta">No me gusta</string>
     <!--PROFILE-->
         <string name="edit_profile">Editar Perfil</string>
         <string name="mod_pass">Cambiar contraseña</string>

@@ -46,7 +46,7 @@ public class ItemAdapter extends BaseAdapter {
             rowView = inflater.inflate(com.poli.posfly.R.layout.event_item, parent, false);
         }
 
-        // Set data into the view.
+        // Set data into the view
         TextView txtName = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtNameEv);
         TextView txtPlace = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtPlaceEv);
         TextView txtDate = (TextView) rowView.findViewById(com.poli.posfly.R.id.txtDateEv);

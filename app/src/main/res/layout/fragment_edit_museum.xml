@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
     android:orientation="vertical">
 
     <TextView
@@ -12,7 +11,7 @@
         android:layout_margin="50dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/create_museum"
+        android:text="@string/edit_museum"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp"
@@ -25,7 +24,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/txtNameMuseum"
+            android:id="@+id/txtEditNameM"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -40,7 +39,7 @@
             android:textColorLink="@color/colorAccent" />
 
         <EditText
-            android:id="@+id/txtDateMuseum"
+            android:id="@+id/txtEditDateM"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -53,7 +52,7 @@
             android:textColorHint="@android:color/darker_gray" />
 
         <EditText
-            android:id="@+id/txtDescriptionM"
+            android:id="@+id/txtEditDescM"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -68,7 +67,7 @@
             android:textColorLink="@color/colorAccent" />
 
         <CheckBox
-            android:id="@+id/cbAnonimo"
+            android:id="@+id/cbAnonimoE"
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -88,13 +87,13 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/buttonCreateMuseum"
+            android:id="@+id/btnEditMuseum"
             android:layout_width="220dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/buttons_shape"
             android:gravity="center"
-            android:text="@string/create_museum"
+            android:text="@string/edit_museum"
             android:textColor="@android:color/white" />
     </LinearLayout>
 
